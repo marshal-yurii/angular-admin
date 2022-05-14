@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {ExtraOptions, RouterModule, Routes} from '@angular/router';
-import {DashboardComponent} from "./features/dashboard/components/dashboard/dashboard.component";
+import {DashboardComponent} from "./features/dashboard/dashboard.component";
+import {PageNotFoundComponent} from "./features/page-not-found/page-not-found.component";
 
 const routes: Routes = [
   {
@@ -19,7 +20,11 @@ const routes: Routes = [
     path: 'settings',
     loadChildren: () => import('./features/settings/settings.module').then((m) => m.SettingsModule),
   },
-  {path: '**', redirectTo: '/error/404'},
+  {
+    path: '404',
+    component: PageNotFoundComponent,
+  },
+  {path: '**', redirectTo: '404'},
 ];
 
 const routerOptions: ExtraOptions = {
