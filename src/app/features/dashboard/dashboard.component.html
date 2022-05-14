@@ -1,39 +1,12 @@
-<p (click)="getAllVisitors()">
-  {{currentVisitor?.fullName}}
-</p>
-<p (click)="getAllVisitors(10)">
-  {{visitors[2]?.email}}
-</p>
-
-<input [(ngModel)]="phone"
-       [mask]="'(999) 999-9999'"
-       placeholder="(___) ___-____"
-       class="user-name custom-input"
-       type="text"
-/>
-
-<table mat-table [dataSource]="dataSource">
-
-  <ng-container matColumnDef="position">
-    <th mat-header-cell cdkDrag *matHeaderCellDef> No. </th>
-    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="name">
-    <th mat-header-cell cdkDrag *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="weight">
-    <th mat-header-cell cdkDrag *matHeaderCellDef> Weight </th>
-    <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="symbol">
-    <th mat-header-cell cdkDrag *matHeaderCellDef> Symbol </th>
-    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="columns"></tr>
-  <tr mat-row *matRowDef="let row; columns: columns;"></tr>
-</table>
+{{currentDate}}
+<br/><br/>
+<p>Initial array: <ng-container *ngFor="let item of days">{{item}}, </ng-container></p>
+<p>First copy array: <ng-container *ngFor="let item of daysCopyOne">{{item}}, </ng-container></p>
+<p>Second copy array: <ng-container *ngFor="let item of daysCopyTwo">{{item}}, </ng-container></p>
+<h3>Operations at days[] array: replace 'To' with ' ', trim empty spaces</h3>
+<p>Includes symbol 'w': <ng-container *ngFor="let item of includesSymbolW">
+  <span [ngClass]="{red: !item}">{{item}}, </span>
+</ng-container></p>
+<p>Every string has > 5 letters: <span [ngClass]="{red: !isEveryLengthMoreFive}">{{isEveryLengthMoreFive}}</span></p>
+<p>Any of items is string?: <span [ngClass]="{red: !isAnyString}">{{isAnyString}}</span></p>
+<p>Any of items is number?: <span [ngClass]="{red: !isAnyNumber}">{{isAnyNumber}}</span></p>

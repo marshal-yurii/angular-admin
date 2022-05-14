@@ -1,90 +1,72 @@
 import {Component, OnInit} from '@angular/core';
-import {IVisitor} from "../../shared/interfaces/visitor.interface";
-import {visitorsDataMock} from "../../../testing/mocks/visitorsDataMock";
-import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
-import {MatTableDataSource} from "@angular/material/table";
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+import {DatePipe} from "@angular/common";
+import {IUser} from "../../shared/interfaces/user.interface";
+import {ITransaction} from "../../shared/interfaces/transaction.interface";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+  providers: [DatePipe],
 })
 export class DashboardComponent implements OnInit {
-  visitors: IVisitor[] = [];
-  currentVisitor!: IVisitor;
+  currentDate!: string;
+  currentUser: IUser = {} as IUser;
 
-  users: string[] = [
-    'John',
-    'David',
-    'Julia',
+  transactions: ITransaction[] = [];
+
+  days: string[] = [
+    'Yesterday',
+    'Today',
+    'Tomorrow',
   ];
 
-  phone = 8094753456;
+  daysCopyOne: string[] = [];
+  daysCopyTwo: string[] = [];
 
-  columns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource: MatTableDataSource<PeriodicElement> = new MatTableDataSource();
+  includesSymbolW: boolean[] = []; // real example: if includes edit-user inside url then add an item to breadcrumbs
+  isEveryLengthMoreFive!: boolean; // real example: if more than 155 symbols then truncate the string
+  isAnyString!: boolean; // real example: if any is an array then use algorithm to flat the value recursively
+  isAnyNumber!: boolean;
 
-  constructor() {
+  constructor(
+    private datePipe: DatePipe,
+  ) {
   }
 
   ngOnInit(): void {
-    this.dataSource.data = ELEMENT_DATA;
+    this.updateCurrentDate(this.getFormattedDate);
+    this.updateUser();
 
-    const obj1 = {
-      name: '',
-      email: '',
-    }
+    this.daysCopyOne = this.days;
+    this.daysCopyTwo = [...this.days];
 
-    let url = 'https://google.com';
-    url = 'jira';
+    this.days[0] = 'One year ago';
 
-    obj1.name = 'Test';
-
-    const setVisitorName = () => {
-      obj1.name = url;
-    };
-
-    this.visitors.forEach((el: IVisitor) => {
-      el.fullName = obj1.name;
-    });
-
-    this.getAllVisitors();
-    this.currentVisitor = {...this.visitors[1], ...this.visitors[0]};
-
-    const isJuliaExisting = this.users.includes(' Julia '.trim());
+    this.includesSymbolW = this.days.map(el => el.includes('w'));
+    this.isEveryLengthMoreFive = this.days.every(el => el.length > 5);
+    this.isAnyString = this.days.some(el => typeof el === 'string');
+    this.isAnyNumber = this.days.some(el => typeof el === 'number');
+    this.days.forEach(el => el + '1');
+    this.days = this.days.map(el => el.replace('To', ' ').trim());
   }
 
-  getAllVisitors(id: number = 0, url?: string) {
-    // TODO: get real endpoint
-    this.visitors = [...visitorsDataMock] as IVisitor[];
-    const currentVisitor = '';
-
-    return {
-      currentVisitor,
-    }
+  getFormattedDate = (date: Date): void => {
+    this.currentDate = `Current date: ${this.datePipe.transform(date, 'MM.dd.yyyy hh:mm a')}`;
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
+  private updateCurrentDate(callback: any): void {
+    const date = new Date();
+    callback(date);
+  }
+
+  private updateUser(date: Date = new Date(), active: boolean = false): void {
+    this.currentUser = {
+      id: -1,
+      name: 'New user',
+      updatedAt: date.toISOString(),
+      transactions: [...this.transactions],
+      active,
+    }
   }
 }
