@@ -26,7 +26,7 @@
 <p>Any of items is string?: <span [ngClass]="{red: !isAnyString}">{{isAnyString}}</span></p>
 <p>Any of items is number?: <span [ngClass]="{red: !isAnyNumber}">{{isAnyNumber}}</span></p>
 
-<div class="flex">
+<div class="linear-chart-container">
   <div class="flex-item">
     <div style="display: block;">
       <canvas baseChart width="400" height="400"
@@ -46,11 +46,12 @@
       </tr>
     </table>
     <div class="button-row">
-      <button mat-button mat-raised-button color="primary" (click)="randomize()">Randomize</button>
-      <button mat-button mat-raised-button color="primary" (click)="pushOne()">Push</button>
-      <button mat-button mat-raised-button color="primary" (click)="changeColor()">Recolor</button>
-      <button mat-button mat-raised-button color="primary" (click)="hideOne()">Toggle Series B</button>
-      <button mat-button mat-raised-button color="primary" (click)="changeLabel()">Change Label</button>
+      <button mat-button mat-raised-button color="primary" (click)="randomize()">
+        Randomize
+      </button>
+      <button mat-button mat-raised-button color="primary" (click)="changeColor()" [disabled]="disableRecolor">
+        Recolor
+      </button>
     </div>
   </div>
 </div>

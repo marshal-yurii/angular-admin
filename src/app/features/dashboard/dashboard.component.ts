@@ -32,11 +32,13 @@ export class DashboardComponent implements OnInit {
   isAnyString!: boolean; // real example: if any is an array then use algorithm to flat the value recursively
   isAnyNumber!: boolean;
 
+  disableRecolor!: boolean;
+
   public lineChartData: any = {
     datasets: [
       {
         data: viewsDataMock,
-        label: 'Series A',
+        label: 'Views per year',
         backgroundColor: 'rgba(148,159,177,0.2)',
         borderColor: 'rgba(148,159,177,1)',
         pointBackgroundColor: 'rgba(148,159,177,1)',
@@ -107,7 +109,7 @@ export class DashboardComponent implements OnInit {
     this.currentDate = `Current date: ${this.datePipe.transform(date, 'MM.dd.yyyy hh:mm a')}`;
   }
 
-  public randomize(): void {
+  randomize(): void {
     for (let i = 0; i < this.lineChartData.datasets.length; i++) {
       for (let j = 0; j < this.lineChartData.datasets[i].data.length; j++) {
         this.lineChartData.datasets[i].data[j] = DashboardComponent.generateNumber(i);
@@ -116,32 +118,10 @@ export class DashboardComponent implements OnInit {
     this.chart?.update();
   }
 
-  public hideOne(): void {
-    const isHidden = this.chart?.isDatasetHidden(1);
-    this.chart?.hideDataset(1, !isHidden);
-  }
-
-  public pushOne(): void {
-    this.lineChartData.datasets.forEach((x: any, i: number) => {
-      const num = DashboardComponent.generateNumber(i);
-      x.data.push(num);
-    });
-    this.lineChartData?.labels?.push(`Label ${ this.lineChartData.labels.length }`);
-
-    this.chart?.update();
-  }
-
-  public changeColor(): void {
-    this.lineChartData.datasets[2].borderColor = 'green';
-    this.lineChartData.datasets[2].backgroundColor = `rgba(0, 255, 0, 0.3)`;
-
-    this.chart?.update();
-  }
-
-  public changeLabel(): void {
-    if (this.lineChartData.labels) {
-      this.lineChartData.labels[2] = [ '1st Line', '2nd Line' ];
-    }
+  changeColor(): void {
+    this.lineChartData.datasets[0].borderColor = 'green';
+    this.lineChartData.datasets[0].backgroundColor = `rgba(0, 255, 0, 0.3)`;
+    this.disableRecolor = true;
 
     this.chart?.update();
   }
