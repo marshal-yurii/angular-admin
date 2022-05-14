@@ -5,6 +5,7 @@ import {ITransaction} from "../../shared/interfaces/transaction.interface";
 import {BaseChartDirective} from "ng2-charts";
 import {ChartConfiguration, ChartType} from "chart.js";
 import {viewsDataMock} from "../../../testing/mocks/viewsDataMock";
+import {UsersService} from "../../shared/services/users.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -34,6 +35,8 @@ export class DashboardComponent implements OnInit {
 
   disableRecolor!: boolean;
 
+  showMessage = false;
+
   public lineChartData: any = {
     datasets: [
       {
@@ -48,7 +51,7 @@ export class DashboardComponent implements OnInit {
         fill: 'origin',
       },
     ],
-    labels: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   };
 
   public lineChartOptions: ChartConfiguration['options'] = {
@@ -75,7 +78,7 @@ export class DashboardComponent implements OnInit {
       }
     },
     plugins: {
-      legend: { display: true },
+      legend: {display: true},
     }
   };
 
@@ -85,6 +88,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private datePipe: DatePipe,
+    private usersService: UsersService,
   ) {
   }
 
@@ -103,6 +107,16 @@ export class DashboardComponent implements OnInit {
     this.isAnyNumber = this.days.some(el => typeof el === 'number');
     this.days.forEach(el => el + '1');
     this.days = this.days.map(el => el.replace('To', ' ').trim());
+
+    this.usersService.currentUser
+      .subscribe((user: IUser) => {
+        this.showMessage = true;
+        this.currentUser = user;
+
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 3000);
+      });
   }
 
   getFormattedDate = (date: Date): void => {

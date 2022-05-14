@@ -7,3 +7,17 @@
   display: flex;
   justify-content: center;
 }
+
+.message-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: rgba(0, 128, 0, 0.5);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 400;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}

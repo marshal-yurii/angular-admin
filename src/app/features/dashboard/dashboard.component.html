@@ -55,3 +55,15 @@
     </div>
   </div>
 </div>
+
+<br/>
+<br/>
+
+<button mat-button mat-raised-button color="primary" routerLink="users">
+  Users
+</button>
+
+<!--USER UPDATE MESSAGE-->
+<div *ngIf="showMessage" class="message-container">
+  User {{currentUser.name}} was successfully updated!
+</div>
