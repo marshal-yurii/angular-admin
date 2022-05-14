@@ -110,12 +110,14 @@ export class DashboardComponent implements OnInit {
 
     this.usersService.currentUser
       .subscribe((user: IUser) => {
-        this.showMessage = true;
-        this.currentUser = user;
+        if (user?.name) {
+          this.showMessage = true;
+          this.currentUser = user;
 
-        setTimeout(() => {
-          this.showMessage = false;
-        }, 3000);
+          setTimeout(() => {
+            this.showMessage = false;
+          }, 3000);
+        }
       });
   }
 
