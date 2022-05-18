@@ -6,6 +6,7 @@ import {BaseChartDirective} from "ng2-charts";
 import {ChartConfiguration, ChartType} from "chart.js";
 import {viewsDataMock} from "../../../testing/mocks/viewsDataMock";
 import {UsersService} from "../../shared/services/users.service";
+import {AuthService} from "../auth/services/auth.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,8 @@ import {UsersService} from "../../shared/services/users.service";
 export class DashboardComponent implements OnInit {
   currentDate!: string;
   currentUser: IUser = {} as IUser;
+
+  today: Date = new Date();
 
   transactions: ITransaction[] = [];
 
@@ -88,6 +91,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private datePipe: DatePipe,
+    private authService: AuthService,
     private usersService: UsersService,
   ) {
   }

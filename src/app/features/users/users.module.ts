@@ -2,13 +2,17 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {UsersComponent} from './components/users/users.component';
 import {MaterialModule} from "../../material/material.module";
-import {RouterModule} from "@angular/router";
+import {RouterModule, Routes} from "@angular/router";
 
-const routes = [
+const routes: Routes = [
   {
     path: '',
     component: UsersComponent,
-  }
+  },
+  {
+    path: ':id',
+    component: UsersComponent,
+  },
 ];
 
 @NgModule({

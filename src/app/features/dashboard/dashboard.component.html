@@ -26,7 +26,7 @@
 <p>Any of items is string?: <span [ngClass]="{red: !isAnyString}">{{isAnyString}}</span></p>
 <p>Any of items is number?: <span [ngClass]="{red: !isAnyNumber}">{{isAnyNumber}}</span></p>
 
-<div class="linear-chart-container">
+<div appAccordion class="linear-chart-container">
   <div class="flex-item">
     <div style="display: block;">
       <canvas baseChart width="400" height="400"
@@ -66,4 +66,34 @@
 <!--USER UPDATE MESSAGE-->
 <div *ngIf="showMessage" class="message-container">
   {{currentUser.name}} was successfully updated!
+</div>
+
+<div class="time-ago-container">
+  {{today | timeAgo : 'min'}}
+</div>
+
+<button appAccordion class="accordion">Accordian #1</button>
+<div class="accordion-content">
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas deleniti molestias necessitatibus quaerat quos incidunt! Quas officiis repellat dolore omnis nihil quo,
+    ratione cupiditate! Sed, deleniti, recusandae! Animi, sapiente, nostrum?
+  </p>
+</div>
+
+
+<button appAccordion class="accordion">Accordian #2</button>
+<div class="accordion-content">
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas deleniti molestias necessitatibus quaerat quos incidunt! Quas officiis repellat dolore omnis nihil quo,
+    ratione cupiditate! Sed, deleniti, recusandae! Animi, sapiente, nostrum?
+  </p>
+</div>
+
+
+<button appAccordion class="accordion">Accordian #3</button>
+<div class="accordion-content">
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas deleniti molestias necessitatibus quaerat quos incidunt! Quas officiis repellat dolore omnis nihil quo,
+    ratione cupiditate! Sed, deleniti, recusandae! Animi, sapiente, nostrum?
+  </p>
 </div>
