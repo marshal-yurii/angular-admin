@@ -36,3 +36,58 @@
 <button class="back-btn" mat-button mat-raised-button color="primary" routerLink="">
   Back to Dashboard
 </button>
+
+<br>
+<h1>ViewChild</h1>
+<br>
+
+<div (submit)="submitForm()" class="add-user-form">
+  <input #nameInput [(ngModel)]="userName" [disabled]="true" type="text" (keydown.enter)="focusInput()" />
+  <input [ngModelOptions]="{standalone: true}" #emailInput id="emailInput" [(ngModel)]="userEmail" type="text" (keydown.enter)="focusButton()" />
+
+  <button (click)="addUser()" type="button" #createUserButton class="create-user-btn" mat-button mat-raised-button color="primary">
+    Create user
+  </button>
+</div>
+
+<form [formGroup]="userFormGroup" (ngSubmit)="addUser()" class="add-user-form">
+  <input formControlName="userName" type="text" (keydown.enter)="focusInput()" />
+  <input formControlName="email"
+         [ngClass]="{error: userFormGroup.get('email')?.invalid && userFormGroup.get('email')?.touched}"
+         type="text" (keydown.enter)="focusButton()"
+  />
+
+  <button [disabled]="userFormGroup.invalid"
+          (click)="addUser()"
+          type="button"
+          #createUserButton
+          class="create-user-btn"
+          mat-button mat-raised-button
+          color="primary"
+  >
+    Create user
+  </button>
+</form>
+
+<app-toggler [(ngModel)]="toggleValue">
+  External Context
+</app-toggler>
+
+<br>
+<h1>ViewChildren</h1>
+<br>
+
+<div class="inputs-wrapper">
+  <div @fadeInOut *ngIf="toggleValue; else activeTmpl">
+    <input *ngFor="let input of inputs; let i = index"
+           maxlength="1"
+           (keyup)="setValue($event, i)"
+           #codeInputs
+    />
+  </div>
+  <ng-template #activeTmpl>IS ACTIVE!</ng-template>
+</div>
+
+<button mat-button mat-raised-button class="verify-button" #verifyButton>
+  Verify & Continue
+</button>

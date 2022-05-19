@@ -1,0 +1,20 @@
+<div class="switcher" [class.checked]="value">
+  <input
+    [id]="id"
+    [(ngModel)]="value"
+    [disabled]="disabled"
+    type="checkbox"
+    name="switcher"
+    id="switcher-{{id}}"
+    class="switcher-input"
+  />
+
+  <label
+    [ngClass]="{disabled: disabled, activated: (isCheckedOnPush$ | async)}"
+    [class.disabled]="disabled"
+    [for]="id"
+    class="switcher-label"
+  ></label>
+
+  <ng-content></ng-content>
+</div>

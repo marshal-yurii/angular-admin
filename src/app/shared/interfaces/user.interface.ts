@@ -1,7 +1,7 @@
 import {ITransaction} from "./transaction.interface";
 
 export interface IUser {
-  id: number;
+  id: number | null;
   name: string;
   email?: string;
   updatedAt: string;

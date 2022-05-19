@@ -13,6 +13,7 @@ import {AuthModule} from "./features/auth/auth.module";
 import { TimeAgoPipe } from './shared/pipes/time-ago.pipe';
 import {HttpClientModule} from "@angular/common/http";
 import { AccordionDirective } from './shared/directives/accordion.directive';
+import {InputControlAccessorDirective} from "./shared/directives/input-control-accessor.directive";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AccordionDirective } from './shared/directives/accordion.directive';
     PageNotFoundComponent,
     TimeAgoPipe,
     AccordionDirective,
+    InputControlAccessorDirective,
   ],
   imports: [
     CommonModule,
