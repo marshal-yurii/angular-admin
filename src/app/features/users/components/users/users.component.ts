@@ -55,8 +55,6 @@ export class UsersComponent implements AfterViewInit {
       email: ['', [Validators.required, CustomEmailValidator]],
       activeUser: [true, []],
     });
-
-    console.log(this.userFormGroup);
   }
 
   ngAfterViewInit() {
