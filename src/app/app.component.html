@@ -2,8 +2,8 @@
 <app-navigation></app-navigation>
 
 <main>
-  <div class="page">
-    <router-outlet></router-outlet>
+  <div [@slideToLeft]="prepareRoute(outlet)" class="page">
+    <router-outlet #outlet="outlet"></router-outlet>
   </div>
 
   <app-footer></app-footer>

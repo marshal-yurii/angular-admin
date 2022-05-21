@@ -13,3 +13,10 @@ main {
     background-color: #f5f4f4;
   }
 }
+
+@media screen and(max-width: $mobile) {
+  main {
+    padding-left: 0;
+  }
+}
+

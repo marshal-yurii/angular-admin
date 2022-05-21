@@ -23,7 +23,7 @@
     </div>
   </div>
   <div class="grid-item">
-    <div class="tile mr-2">
+    <div class="tile mr-2 mb-4">
       <div class="tile-header">
         Settings
       </div>
@@ -33,7 +33,7 @@
     </div>
   </div>
   <div class="grid-item">
-    <div *ngIf="showTransactionsTile" class="tile ml-2">
+    <div @fadeInOut *ngIf="showTransactionsTile" class="tile ml-2 mb-4">
       <div appAccordion [opened]="true" class="tile-header accordion-anchor">
         Last transactions
       </div>

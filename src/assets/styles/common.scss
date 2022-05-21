@@ -56,3 +56,16 @@ body {
   }
 }
 
+@media screen and(max-width: $media) {
+  .grid-50 {
+    .grid-item {
+      width: 100%;
+
+      .ml-2,
+      .mr-2 {
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+  }
+}

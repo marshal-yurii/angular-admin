@@ -15,6 +15,7 @@ const routes: Routes = [
   },
   {
     path: 'users',
+    data: { animation: 'rightToLeft' },
     loadChildren: () => import('./features/users/users.module').then((m) => m.UsersModule),
   },
   {

@@ -1,12 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, RouterOutlet} from "@angular/router";
 import {AuthService} from "./core/sevices/auth.service";
 import {UserRolesEnum} from "./shared/enums/user-roles.enum";
+import {slideToLeft} from "./shared/animations/animations";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  animations: [slideToLeft],
 })
 export class AppComponent implements OnInit {
 
@@ -34,5 +36,9 @@ export class AppComponent implements OnInit {
 
   redirectTo(breadcrumb: string): void {
     this.router.navigateByUrl(breadcrumb);
+  }
+
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 }

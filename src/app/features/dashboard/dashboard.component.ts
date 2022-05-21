@@ -8,12 +8,14 @@ import {viewsDataMock} from "../../../testing/mocks/viewsDataMock";
 import {UsersService} from "../../shared/services/users.service";
 import {AuthService} from "../../core/sevices/auth.service";
 import {usersDataMock} from "../../../testing/mocks/usersDataMock";
+import {fadeInOut} from "../../shared/animations/animations";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
   providers: [DatePipe],
+  animations: [fadeInOut],
 })
 export class DashboardComponent implements OnInit {
   currentDate!: string;
