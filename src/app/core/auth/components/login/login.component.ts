@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {DatePipe} from "@angular/common";
-import {AuthService} from "../../services/auth.service";
+import {AuthService} from "../../../sevices/auth.service";
 
 @Component({
   selector: 'app-login',

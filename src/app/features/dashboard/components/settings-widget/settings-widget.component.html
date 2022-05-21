@@ -1,4 +1,9 @@
 <div class="settings-item">
-  <app-toggler [(ngModel)]="allowTransactions"></app-toggler>
+  <app-toggler [id]="'transactions'" [(ngModel)]="allowTransactions"></app-toggler>
   <div class="label">Allow Transactions</div>
+</div>
+
+<div class="settings-item">
+  <app-toggler [id]="'roles'" (ngModelChange)="setUserRole($event)" [(ngModel)]="isSuperAdmin"></app-toggler>
+  <div class="label">Set Super Admin Role</div>
 </div>

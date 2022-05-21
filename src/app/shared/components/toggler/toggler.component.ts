@@ -13,7 +13,6 @@ import {BehaviorSubject} from "rxjs";
       multi: true,
     }
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TogglerComponent implements ControlValueAccessor {
   @Input() id!: string;
@@ -35,9 +34,7 @@ export class TogglerComponent implements ControlValueAccessor {
 
   protected _value: any;
 
-  constructor(
-    private cdr: ChangeDetectorRef,
-  ) {
+  constructor() {
   }
 
   onChange: any = () => {
@@ -47,7 +44,6 @@ export class TogglerComponent implements ControlValueAccessor {
 
   writeValue(value: any): void {
     this.value = value;
-    this.cdr.detectChanges();
   }
 
   registerOnChange(fn: any): void {

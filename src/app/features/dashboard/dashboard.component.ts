@@ -6,7 +6,7 @@ import {BaseChartDirective} from "ng2-charts";
 import {ChartConfiguration, ChartType} from "chart.js";
 import {viewsDataMock} from "../../../testing/mocks/viewsDataMock";
 import {UsersService} from "../../shared/services/users.service";
-import {AuthService} from "../auth/services/auth.service";
+import {AuthService} from "../../core/sevices/auth.service";
 import {usersDataMock} from "../../../testing/mocks/usersDataMock";
 
 @Component({

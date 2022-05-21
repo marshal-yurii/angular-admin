@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from "./features/dashboard/dashboard.component";
 import {PageNotFoundComponent} from "./features/page-not-found/page-not-found.component";
+import {SuperAdminGuard} from "./core/guards/super-admin.guard";
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
   },
   {
     path: 'settings',
+    canActivate: [SuperAdminGuard],
     loadChildren: () => import('./features/settings/settings.module').then((m) => m.SettingsModule),
   },
   {

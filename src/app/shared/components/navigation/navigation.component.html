@@ -5,12 +5,14 @@
   </div>
 
   <div class="nav-items">
-    <div class="nav-item"
-         *ngFor="let nav of navItems"
-         [routerLinkActiveOptions]="{exact: true}"
-         routerLink="{{nav.url}}" routerLinkActive="active"
-    >
-      {{nav.name}}
-    </div>
+    <ng-container *ngFor="let nav of navItems">
+      <div class="nav-item"
+           *ngIf="checkSettingsVisibility(nav)"
+           [routerLinkActiveOptions]="{exact: true}"
+           routerLink="{{nav.url}}" routerLinkActive="active"
+      >
+        {{nav.name}}
+      </div>
+    </ng-container>
   </div>
 </nav>

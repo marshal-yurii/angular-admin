@@ -9,7 +9,7 @@ import {PageNotFoundComponent} from './features/page-not-found/page-not-found.co
 import {DashboardComponent} from "./features/dashboard/dashboard.component";
 import {NgChartsModule} from 'ng2-charts';
 import {MaterialModule} from "./material/material.module";
-import {AuthModule} from "./features/auth/auth.module";
+import {AuthModule} from "./core/auth/auth.module";
 import {TimeAgoPipe} from './shared/pipes/time-ago.pipe';
 import {HttpClientModule} from "@angular/common/http";
 import {AccordionDirective} from './shared/directives/accordion.directive';
