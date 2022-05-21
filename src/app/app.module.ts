@@ -22,6 +22,7 @@ import {UsersTableModule} from "./shared/components/users-table/users-table.modu
 import {SettingsWidgetComponent} from './features/dashboard/components/settings-widget/settings-widget.component';
 import {TogglerModule} from "./shared/components/toggler/toggler.module";
 import {FormsModule} from "@angular/forms";
+import {TransactionsTableModule} from "./shared/components/transactions-table/transactions-table.module";
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import {FormsModule} from "@angular/forms";
     FooterModule,
     UsersTableModule,
     TogglerModule,
+    TransactionsTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

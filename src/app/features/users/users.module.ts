@@ -11,6 +11,8 @@ import { TransactionsComponent } from './components/transactions/transactions.co
 import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import {BreadcrumbsModule} from "../../shared/components/breadcrumbs/breadcrumbs.module";
+import {TransactionsTableModule} from "../../shared/components/transactions-table/transactions-table.module";
+import {TransactionResolver} from "../../core/resolvers/transaction.resolver";
 
 const routes: Routes = [
   {
@@ -19,6 +21,7 @@ const routes: Routes = [
   },
   {
     path: ':id',
+    resolve: {role: TransactionResolver},
     component: UserDetailsComponent,
   },
   {
@@ -56,6 +59,7 @@ const routes: Routes = [
     TogglerModule,
     UsersTableModule,
     BreadcrumbsModule,
+    TransactionsTableModule,
   ]
 })
 export class UsersModule {

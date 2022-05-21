@@ -9,6 +9,7 @@ import {UsersService} from "../../shared/services/users.service";
 import {AuthService} from "../../core/sevices/auth.service";
 import {usersDataMock} from "../../../testing/mocks/usersDataMock";
 import {fadeInOut} from "../../shared/animations/animations";
+import {transactionsDataMock} from "../../../testing/mocks/transactionsDataMock";
 
 @Component({
   selector: 'app-dashboard',
@@ -22,10 +23,9 @@ export class DashboardComponent implements OnInit {
   currentUser: IUser = {} as IUser;
 
   users: IUser[] = [];
+  transactions: ITransaction[] = [];
 
   today: Date = new Date();
-
-  transactions: ITransaction[] = [];
 
   days: string[] = [
     'Yesterday',
@@ -105,6 +105,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.users = usersDataMock;
+    this.transactions = transactionsDataMock;
 
     this.updateCurrentDate(this.getFormattedDate);
     this.updateUser();

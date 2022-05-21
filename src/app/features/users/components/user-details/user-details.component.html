@@ -1,1 +1,39 @@
 <app-breadcrumbs [breadcrumbs]="breadcrumbs"></app-breadcrumbs>
+
+<div class="tile">
+  <h2>{{currentUser?.name}}</h2>
+
+  <div class="details-item">
+    <div class="label">Email:</div>
+    <div class="value">{{currentUser?.email}}</div>
+  </div>
+
+  <div class="details-item">
+    <div class="label">Phone:</div>
+    <div class="value">{{currentUser?.phone}}</div>
+  </div>
+
+  <div class="details-item">
+    <div class="label">Amount spent:</div>
+    <div class="value">{{currentUser?.amount | currency: 'USD' : 'symbol'}}</div>
+  </div>
+
+  <div class="details-item">
+    <div class="label">Status:</div>
+    <div class="value">{{currentUser?.active ? 'Active' : 'Inactive'}}</div>
+  </div>
+
+  <div class="details-item">
+    <div class="label">Last update:</div>
+    <div class="value">{{currentUser?.updatedAt | date: 'MM/dd/yyyy'}}</div>
+  </div>
+</div>
+
+<div class="transactions-table-container mat-elevation-z8">
+  <h1>TRANSACTIONS</h1>
+
+  <app-transactions-table [showCreator]="isSuperAdmin"
+                          [transactionsList]="transactions"
+  ></app-transactions-table>
+</div>
+
