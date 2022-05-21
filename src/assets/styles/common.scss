@@ -54,6 +54,11 @@ body {
   .label {
     margin-left: 10px;
   }
+
+  app-multiselect-dropdown {
+    display: block;
+    max-width: 250px;
+  }
 }
 
 .pointer {

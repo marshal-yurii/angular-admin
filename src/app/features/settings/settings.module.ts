@@ -4,6 +4,7 @@ import {SettingsComponent} from './components/settings/settings.component';
 import {RouterModule, Routes} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {TogglerModule} from "../../shared/components/toggler/toggler.module";
+import {MultiselectDropdownModule} from "../../shared/components/multiselect-dropdown/multiselect-dropdown.module";
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     FormsModule,
     TogglerModule,
+    MultiselectDropdownModule,
   ]
 })
 export class SettingsModule {

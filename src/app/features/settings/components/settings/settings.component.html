@@ -2,3 +2,19 @@
   <app-toggler [id]="'theme'" (ngModelChange)="setTheme($event)" [(ngModel)]="darkTheme"></app-toggler>
   <div class="label">Set Dark Theme</div>
 </div>
+
+<div class="settings-item">
+  <app-multiselect-dropdown [(ngModel)]="selectedUsers"
+                            [id]="'users'"
+                            [label]="'Select Users'"
+                            [placeholder]="'All Users'"
+                            (selected)="changeSelectedUsers($event, true)"
+                            (deSelected)="changeSelectedUsers($event, false)"
+                            (deSelectedAll)="changeSelectedUsers(null, false)"
+                            (selectedAll)="changeSelectedUsers('all', true)"
+                            [data]="usersList"
+                            [settings]="userListSettings"
+                            [itemsLimit]="userItemsShowLimit"
+  ></app-multiselect-dropdown>
+</div>
+

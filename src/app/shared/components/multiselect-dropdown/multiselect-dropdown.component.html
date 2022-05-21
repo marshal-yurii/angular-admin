@@ -1,0 +1,127 @@
+<div *ngIf="label" class="label default">{{label}}</div>
+
+<div tabindex="0"
+     class="multiselect-dropdown"
+     appClickOutside
+     (clickOutside)="closeDropdown($event)"
+     #multiselectDropdown
+>
+
+  <button type="button"
+          tabindex="-1"
+          class="dropdown-btn"
+          [class.disabled]="disable"
+          (click)="toggleDropdown($event)"
+  >
+    <label class="placeholder" *ngIf="selectedItems.length === 0">
+      {{opened ? 'Select' : placeholder}}
+    </label>
+
+    <label class="content">
+      <div class="selected-item"
+           *ngFor="let item of selectedItems; trackBy: trackByFn; let k = index"
+           [hidden]="k > itemsLimit - 1"
+           (click)="onItemClick($event, item)"
+      >
+        <div class="item-text" [title]="item.additionalText || item.text || ''">
+          {{item.text}}
+        </div>
+      </div>
+    </label>
+
+    <span class="counter" *ngIf="selectedItems?.length" (click)="toggleSelectAll(true)">
+      {{selectedItems.length}}
+    </span>
+
+    <img class="dropdown-icon"
+         [class.active]="opened"
+         src="assets/icons/icon-chevron-down-gray.svg"
+         alt="chevron-bottom"
+    />
+  </button>
+
+  <div class="dropdown-list {{formControlName}}"
+       [class.opened]="opened"
+       [style.maxHeight]="(opened ? settings.maxHeight : '0') + 'px'"
+  >
+    <div #optionsListContainer class="dropdown-wrapper">
+      <div class="filter-text-box"
+           *ngIf="(data.length > 0 || settings.allowRemoteDataSearch) && settings.allowSearchFilter"
+      >
+        <app-search-input class="multiselect-search"
+                          [(ngModel)]="filter.text"
+                          (searchCleared)="filterTextChange('')"
+                          (searchValueChanged)="filterTextChange($event)"
+                          [loading]="loading"
+                          [disable]="disable"
+                          [hideDropdown]="true"
+                          [customComplete]="true"
+                          [placeholder]="multiselectSearchTooltip ? '' : (settings.searchPlaceholderText || '')"
+                          (keyEnter)="searchTooltipApply()"
+        ></app-search-input>
+
+        <div #searchTooltip class="multiselect-search-tooltip">
+          <span>{{filter.text}}</span>{{multiselectSearchTooltip}}
+        </div>
+      </div>
+
+      <div *ngIf="showSelectAll()" class="multiselect-toggle-all">
+        <input
+          type="checkbox"
+          (change)="toggleSelectAll()"
+          [(ngModel)]="isAllItemsSelected"
+          [id]="'select-all-' + id"
+          aria-label="multiselect-select-all"
+          [disabled]="disable || isLimitSelectionReached() || loading === true"
+        />
+          <div [class.disabled]="disable || isLimitSelectionReached() || loading === true"
+               class="toggle-all-text"
+          >
+            {{settings.selectAllText}}
+          </div>
+      </div>
+
+      <cdk-virtual-scroll-viewport #optionsScrollContainer
+                                   [appendOnly]="true"
+                                   [itemSize]="28"
+                                   class="multiselect-container styled-main-scroll"
+                                   [class.empty]="!data.length"
+      >
+        <div
+          *cdkVirtualFor="let item of data | multiSelectFilter: filter: shouldFilterByNDC; templateCacheSize: 0; let i = index; let last = last"
+          class="multiselect-item"
+          (click)="onItemClick($event, item)"
+          [tabindex]="1"
+          #multiselectItems
+        >
+          <input type="checkbox"
+                 class="multiselect-checkbox"
+                 [checked]="isSelected(item)"
+                 [disabled]="isItemDisabled(item) || loading === true"
+          />
+
+          <div [ngClass]="{active: isSelected(item), last: last, disabled: disable || loading === true}"
+               class="multiselect-option"
+               *ngIf="item.text"
+          >
+            <div [title]="item.text" class="text">{{item.text}}</div>
+            <span class="additional" *ngIf="item.additionalText">
+             ({{item.additionalText}})
+            </span>
+          </div>
+        </div>
+
+        <div class="no-data" *ngIf="data.length === 0 && !settings.allowRemoteDataSearch">
+          {{settings.noDataAvailablePlaceholderText}}
+        </div>
+      </cdk-virtual-scroll-viewport>
+
+      <div *ngIf="filter.text && !(data | multiSelectFilter: filter: shouldFilterByNDC).length"
+           class="empty-filtered-data-splash">
+        No results for "{{filter.text}}"
+      </div>
+
+    </div>
+  </div>
+
+</div>

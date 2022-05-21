@@ -1,0 +1,202 @@
+:host {
+  width: 100%;
+
+  .label {
+    display: flex;
+
+    .error-message {
+      margin-left: 8px;
+      color: #a11b1b;
+      font-size: 12px;
+    }
+  }
+
+  .search-input-container {
+    position: relative;
+
+    .wrapper {
+      position: relative;
+
+      .search-icon,
+      .success-icon,
+      .loading-icon {
+        top: 50%;
+        transform: translateY(-50%);
+        left: 15px;
+        width: 16px;
+        height: 16px;
+        position: absolute;
+      }
+
+      .search-input {
+        width: calc(100% - 84px);
+        padding: 8px 40px;
+        font-size: 12px;
+        background-color: #ffffff;
+        border-radius: 6px;
+        border: 1px solid #a3a3a3;
+
+        &:focus {
+          border: 1px solid #444444;
+        }
+
+        &:focus {
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px #7DD3FC;
+        }
+
+        &::placeholder {
+          color: #444444;
+        }
+
+        &.transparent-text {
+          color: transparent;
+        }
+
+        &.error {
+          &:focus {
+            border-color: #fca5a5;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px #fca5a5;
+          }
+        }
+      }
+
+      .clear-search-icon {
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        width: 12px;
+        height: 12px;
+        position: absolute;
+        right: 12px;
+      }
+    }
+
+    .search-dropdown {
+      z-index: 2;
+      top: 42px;
+      opacity: 0;
+      pointer-events: none;
+      max-height: 0;
+      transition: background-color 0.4s ease-in-out, border-color 0.2s ease-in-out, max-height 0.2s ease-in-out;
+      width: 100%;
+      position: absolute;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      box-shadow: rgb(99 99 99 / 20%) 0 2px 8px 0;
+
+      &.opened {
+        opacity: 1;
+        pointer-events: all;
+        background-color: #ffffff;
+        transition: background-color 0.001s ease-in-out;
+        max-height: 282px;
+      }
+
+      .dropdown-container {
+        transition: opacity 0.2s ease-in-out;
+        overflow: hidden;
+        max-height: 274px;
+        padding-left: 8px;
+        padding-right: 8px;
+
+        .scroll-container {
+          overflow-y: auto;
+          max-height: 274px;
+          padding: 8px 0;
+
+          &::-webkit-scrollbar {
+            width: 2px;
+          }
+
+          &::-webkit-scrollbar-track {
+            margin: 8px 0;
+            border-radius: 4px;
+            background-color: #a3a3a3;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background-color: #dddddd;
+          }
+
+          .dropdown-item {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            font-size: 12px;
+            color: #444444;
+
+            &:focus {
+              font-weight: 600;
+              background-color: #7DD3FC;
+            }
+
+            &:hover:not(.empty) {
+              font-weight: 600;
+              color: #ffffff;
+              background-color: #00102d;
+
+              &.selected::after {
+                background: url("/assets/icons/icon-checker-white.svg") no-repeat;
+              }
+            }
+
+            &.selected {
+              position: relative;
+              font-weight: 600;
+
+              &::after {
+                content: '';
+                display: inline-block;
+                width: 14px;
+                height: 10px;
+                right: 14px;
+                margin-top: 3px;
+                position: absolute;
+                background: url("/assets/icons/icon-checker-violet.svg") no-repeat;
+              }
+            }
+
+            &.empty {
+              width: 100%;
+              justify-content: center;
+              font-style: italic;
+              font-size: 12px;
+
+              &:hover {
+                cursor: default;
+              }
+
+              span {
+                margin-left: 4px;
+              }
+            }
+
+          }
+        }
+      }
+
+    }
+  }
+
+  .search-option {
+    display: flex;
+    cursor: pointer;
+    font-size: 12px;
+
+    &.cover {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      left: 40px;
+    }
+
+    .name {
+      max-width: 333px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+}

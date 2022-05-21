@@ -1,0 +1,117 @@
+<div *ngIf="label" class="label default">
+  {{label}}
+  <div *ngIf="errorMessage && processed && searchResults && searchResults.length === 0 && searchControl?.value?.length > DEFAULT_SEARCH_BOUNCE"
+       class="error-message"
+  >
+    {{errorMessage}}
+  </div>
+</div>
+
+<div appClickOutside (clickOutside)="isOpened = false"
+     class="search-input-container"
+     [ngClass]="color"
+>
+  <div class="wrapper" (click)="isOpened = true">
+    <img *ngIf="color === SearchInputColorEnum.Green"
+         [hidden]="loading === true || chosenItem || hasError"
+         src="assets/icons/icon-field-search-green.svg"
+         alt="icon-search"
+         class="search-icon"
+    />
+    <img *ngIf="color === SearchInputColorEnum.Blue"
+         [hidden]="loading === true || chosenItem || hasError"
+         src="assets/icons/icon-field-search-blue.svg"
+         alt="icon-search"
+         class="search-icon"
+    />
+    <img *ngIf="!color" [hidden]="loading === true || chosenItem || isFocused || hasError"
+         src="assets/icons/icon-field-search-gray.svg"
+         alt="icon-search"
+         class="search-icon"
+    />
+    <img *ngIf="!color" [hidden]="loading === true || chosenItem || !isFocused || hasError"
+         src="assets/icons/icon-field-search.svg"
+         alt="icon-search"
+         class="search-icon"
+    />
+    <img [hidden]="loading === true || !chosenItem || hasError"
+         src="assets/icons/icon-alert-success-blue.svg"
+         alt="icon-search"
+         class="success-icon"
+    />
+    <img [hidden]="loading === false || loading === undefined"
+         src="assets/icons/spinning-animation-loading.svg"
+         alt="spinning"
+         class="loading-icon"
+    />
+    <img [hidden]="loading === true || !hasError"
+         src="assets/icons/icon-alert-error.svg"
+         alt="error-icon"
+         class="search-icon"
+    />
+
+    <input
+      #searchInput
+      (focus)="searchFocus()"
+      (blur)="searchBlur()"
+      [placeholder]="placeholder"
+      [formControl]="searchControl"
+      (keyup)="keyupHandler($event)"
+      (keydown.tab)="keydownTab.emit()"
+      class="search-input"
+      [ngClass]="{'transparent-text': isDrugOption && chosenItem, 'error': hasError}"
+      type="text"
+    />
+
+    <div *ngIf="isDrugOption && chosenItem"
+         (click)="focusInput()"
+         class="search-option cover"
+    >
+      <div [title]="chosenItem.friendlyName" class="name">{{chosenItem.friendlyName}}</div>
+    </div>
+
+    <img *ngIf="searchControl.value && searchControl.value.length"
+         (click)="clearSearch()"
+         class="clear-search-icon animation-focus-default"
+         src="assets/icons/icon-close-gray.svg"
+         alt="icon-remove"
+    />
+  </div>
+  <!-- Use hidden rather than ngIf below to help render performance since this will be hiding/showing frequently -->
+  <div [hidden]="loading || !isOpened || hideDropdown"
+       [class.opened]="(searchControl.value && searchControl.value.length > DEFAULT_SEARCH_BOUNCE)"
+       class="search-dropdown"
+  >
+    <div class="dropdown-wrapper">
+      <!-- two wrappers to align custom scroll -->
+      <div class="dropdown-container">
+        <div class="scroll-container" #scrollContainer>
+          <div (click)="chooseOption(option)"
+               *ngFor="let option of searchResults"
+               [class.selected]="chosenItem && (option.id === chosenItem.id)"
+               #searchResults
+               [tabindex]="1"
+               class="dropdown-item"
+          >
+            <span *ngIf="!isDrugOption">{{option.name}}</span>
+
+            <div *ngIf="isDrugOption" class="drug-option">
+              <div [title]="option.friendlyName" class="name">{{option.friendlyName}}</div>
+            </div>
+          </div>
+
+          <div *ngIf="loading !== true && (searchResults === undefined || searchResults.length === 0) &&
+            (searchControl.value && searchControl.value.length > DEFAULT_SEARCH_BOUNCE)"
+               class="dropdown-item empty"
+          >
+            No results for <span>"{{searchControl.value}}"</span>
+          </div>
+
+          <div *ngIf="loading === true" class="dropdown-item empty">
+            <img src="assets/icons/spinning-animation-loading.svg" alt="loading"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
