@@ -1,1 +1,4 @@
-<p>settings works!</p>
+<div class="settings-item">
+  <app-toggler [id]="'theme'" (ngModelChange)="setTheme($event)" [(ngModel)]="darkTheme"></app-toggler>
+  <div class="label">Set Dark Theme</div>
+</div>

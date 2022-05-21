@@ -1,4 +1,4 @@
-<nav>
+<nav [ngClass]="{'dark': currentTheme === ThemesEnum.Dark}">
   <div class="logo-container" routerLink="/">
     <img class="main-logo" src="assets/images/angular_logo.png" alt="logo" />
     Angular Admin

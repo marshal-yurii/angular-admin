@@ -45,3 +45,14 @@ body {
     padding: 10px;
   }
 }
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  .label {
+    margin-left: 10px;
+  }
+}
+

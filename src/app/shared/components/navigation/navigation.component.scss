@@ -10,6 +10,16 @@ nav {
   z-index: 100;
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%),
   0 2px 10px 0 rgb(0 0 0 / 12%);
+  transition: all 0.2s ease-in-out;
+
+  &.dark {
+    color: #ffffff;
+    background-color: $color-secondary;
+
+    .logo-container {
+      color: #ffffff;
+    }
+  }
 
   .logo-container {
     cursor: pointer;
