@@ -8,6 +8,8 @@ export const usersDataMock: IUser[] = [
     updatedAt: '2022-05-16T02:00:00Z',
     transactions: [],
     active: true,
+    amount: 40000,
+    phone: 9985667345,
   },
   {
     id: 1,
@@ -16,6 +18,7 @@ export const usersDataMock: IUser[] = [
     updatedAt: '2022-05-16T02:00:00Z',
     transactions: [],
     active: true,
+    amount: 30000,
   },
   {
     id: 2,
@@ -24,5 +27,6 @@ export const usersDataMock: IUser[] = [
     updatedAt: '2022-05-16T02:00:00Z',
     transactions: [],
     active: false,
+    phone: 9985667386,
   },
 ];

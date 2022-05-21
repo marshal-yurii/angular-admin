@@ -1,3 +1,30 @@
+@import "src/assets/styles/variables";
+
 table {
   width: 100%;
+
+  .phone-text {
+    cursor: pointer;
+  }
+
+  .phone-input {
+    max-width: 140px;
+
+    .mat-form-field {
+      max-width: 100px;
+      margin-bottom: -15px;
+    }
+  }
+
+  .phone-input,
+  .controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    mat-icon {
+      font-size: 20px;
+      color: $color-secondary;
+    }
+  }
 }

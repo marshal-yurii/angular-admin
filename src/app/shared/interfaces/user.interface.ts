@@ -7,4 +7,6 @@ export interface IUser {
   updatedAt: string;
   transactions: ITransaction[];
   active: boolean;
+  amount?: number;
+  phone?: number;
 }

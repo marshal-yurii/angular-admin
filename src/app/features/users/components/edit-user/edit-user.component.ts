@@ -14,7 +14,7 @@ export class EditUserComponent implements OnInit {
       name: 'Dashboard',
     },
     {
-      path: './../users',
+      path: '/users',
       name: 'Users',
     },
     {

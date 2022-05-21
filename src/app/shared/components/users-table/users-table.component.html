@@ -15,9 +15,49 @@
     <td mat-cell *matCellDef="let user"> {{user.updatedAt | date: 'MM/dd/yyyy'}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="active">
+  <ng-container matColumnDef="status">
     <th mat-header-cell *matHeaderCellDef> Status </th>
     <td mat-cell *matCellDef="let user"> {{user.active ? 'Active' : 'Inactive'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef> Amount </th>
+    <td mat-cell *matCellDef="let user"> {{user.amount | currency: 'USD' : 'symbol'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="phone">
+    <th mat-header-cell *matHeaderCellDef> Phone </th>
+    <td mat-cell *matCellDef="let user; let i = index;">
+      <div *ngIf="editMode[i] === false" (click)="editMode[i] = true" class="phone-text">
+        {{user.phone | mask: '(000) 000-0000'}}
+      </div>
+      <div *ngIf="editMode[i] === true"
+           (click)="editMode[i] = true"
+           class="phone-input"
+      >
+        <mat-form-field class="example-full-width">
+          <mat-label>Phone</mat-label>
+          <input matInput
+                 placeholder="(999) 999-9999"
+                 (keydown.enter)="savePhone(i)"
+                 (keydown.escape)="cancelPhone(i)"
+                 [(ngModel)]="phoneNumber[i]"
+                 mask="(000) 000-0000"
+                 type="text">
+        </mat-form-field>
+        <button mat-button (click)="savePhone(i)" mat-icon-button><mat-icon>save</mat-icon></button>
+      </div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let user; let i = index">
+      <div class="controls">
+        <button mat-button (click)="editUser(user)" mat-icon-button><mat-icon>edit</mat-icon></button>
+        <button mat-button (click)="removeUser(i)" mat-icon-button><mat-icon>delete</mat-icon></button>
+      </div>
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
