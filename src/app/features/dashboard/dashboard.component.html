@@ -28,12 +28,12 @@
         Settings
       </div>
       <div class="tile-body">
-        <app-settings-widget></app-settings-widget>
+        <app-settings-widget (transactionsSettingsChange)="toggleTransactionsTile($event)"></app-settings-widget>
       </div>
     </div>
   </div>
   <div class="grid-item">
-    <div class="tile ml-2">
+    <div *ngIf="showTransactionsTile" class="tile ml-2">
       <div appAccordion [opened]="true" class="tile-header accordion-anchor">
         Last transactions
       </div>

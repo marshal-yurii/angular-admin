@@ -1,10 +1,13 @@
-<div class="breadcrumbs-container">
-  <button *ngFor="let breadcrumb of breadcrumbs; let i = index; let first = first; let last = last"
-          class="breadcrumb"
-          (click)="chosen.emit(breadcrumb)"
-  >
-    <ng-container>
-      {{breadcrumb}} <span *ngIf="!last">></span>
-    </ng-container>
-  </button>
+<div *ngIf="breadcrumbs.length" class="breadcrumbs-container">
+  <ng-container *ngFor="let breadcrumb of breadcrumbs; let i = index; let first = first; let last = last">
+    <div *ngIf="!last; else lastItem" class="breadcrumb" routerLink="{{breadcrumb.path}}" (click)="chosen.emit(breadcrumb)">
+      {{breadcrumb.name}}
+    </div>
+    <ng-template #lastItem>
+      <div class="breadcrumb last">
+        {{breadcrumb.name}}
+      </div>
+    </ng-template>
+    <img class="divider-icon" src="assets/icons/icon_chevron_right.svg" *ngIf="!last" />
+  </ng-container>
 </div>

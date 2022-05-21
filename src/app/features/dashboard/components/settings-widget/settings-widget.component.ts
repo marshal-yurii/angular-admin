@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AuthService} from "../../../../core/sevices/auth.service";
 import {UserRolesEnum} from "../../../../shared/enums/user-roles.enum";
 
@@ -8,6 +8,8 @@ import {UserRolesEnum} from "../../../../shared/enums/user-roles.enum";
   styleUrls: ['./settings-widget.component.scss'],
 })
 export class SettingsWidgetComponent implements OnInit {
+  @Output() transactionsSettingsChange: EventEmitter<boolean> = new EventEmitter();
+
   allowTransactions = true;
   isSuperAdmin = true;
 

@@ -43,6 +43,8 @@ export class DashboardComponent implements OnInit {
 
   showMessage = false;
 
+  showTransactionsTile = true;
+
   public lineChartData: any = {
     datasets: [
       {
@@ -128,6 +130,10 @@ export class DashboardComponent implements OnInit {
           }, 3000);
         }
       });
+  }
+
+  toggleTransactionsTile(ev: boolean): void {
+    this.showTransactionsTile = ev;
   }
 
   getFormattedDate = (date: Date): void => {

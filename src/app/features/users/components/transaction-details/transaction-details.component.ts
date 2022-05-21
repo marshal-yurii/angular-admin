@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {IBreadcrumb} from "../../../../shared/interfaces/breadcrumb.interface";
 
 @Component({
   selector: 'app-transaction-details',
@@ -7,7 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TransactionDetailsComponent implements OnInit {
 
-  constructor() { }
+  breadcrumbs: IBreadcrumb[] = [
+    {
+      path: '/',
+      name: 'Dashboard',
+    },
+    {
+      path: './../users',
+      name: 'Users',
+    },
+    {
+      path: './../users/transactions',
+      name: 'Transactions',
+    },
+    {
+      path: '',
+      name: 'Transaction Details',
+    },
+  ];
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

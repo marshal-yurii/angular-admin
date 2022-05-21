@@ -1,6 +1,6 @@
 <div class="settings-item">
-  <app-toggler [id]="'transactions'" [(ngModel)]="allowTransactions"></app-toggler>
-  <div class="label">Allow Transactions</div>
+  <app-toggler [id]="'transactions'" (ngModelChange)="transactionsSettingsChange.emit($event)" [(ngModel)]="allowTransactions"></app-toggler>
+  <div class="label">Show Transactions Tile</div>
 </div>
 
 <div class="settings-item">

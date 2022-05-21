@@ -1,9 +1,25 @@
+@import "src/assets/styles/variables";
+
 .breadcrumbs-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  margin: 0 10px 20px;
 
-  button.breadcrumb {
+  .breadcrumb {
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    color: $color-secondary;
 
+    &.last {
+      cursor: default;
+      color: #313131;
+    }
+  }
+
+  .divider-icon {
+    margin: 0 8px 0 10px;
+    width: 8px;
+    height: 8px;
   }
 }

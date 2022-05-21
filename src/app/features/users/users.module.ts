@@ -10,6 +10,7 @@ import { UserDetailsComponent } from './components/user-details/user-details.com
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
+import {BreadcrumbsModule} from "../../shared/components/breadcrumbs/breadcrumbs.module";
 
 const routes: Routes = [
   {
@@ -54,6 +55,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TogglerModule,
     UsersTableModule,
+    BreadcrumbsModule,
   ]
 })
 export class UsersModule {

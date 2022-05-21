@@ -6,6 +6,7 @@ import {MatButton} from "@angular/material/button";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CustomEmailValidator} from "../../../../shared/validators/custom-email.validator";
+import {IBreadcrumb} from "../../../../shared/interfaces/breadcrumb.interface";
 
 @Component({
   selector: 'app-users',
@@ -33,6 +34,17 @@ export class UsersComponent implements AfterViewInit {
   userFormGroup: FormGroup = new FormGroup({});
 
   users: IUser[] = usersDataMock;
+
+  breadcrumbs: IBreadcrumb[] = [
+    {
+      path: '/',
+      name: 'Dashboard',
+    },
+    {
+      path: '',
+      name: 'Users',
+    },
+  ];
 
   @ViewChild('nameInput') nameInput!: ElementRef;
   @ViewChild('emailInput') emailInput!: ElementRef;
