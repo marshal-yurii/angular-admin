@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {UserRolesEnum} from "../../shared/enums/user-roles.enum";
+import {CookiesService} from "./cookies.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   currentUser = {};
@@ -12,6 +13,7 @@ export class AuthService {
 
   constructor(
     private httpClient: HttpClient,
+    private cookiesService: CookiesService,
   ) {
   }
 
@@ -21,5 +23,18 @@ export class AuthService {
 
   getRole(): UserRolesEnum {
     return this.currentUserRole;
+  }
+
+  hasToken(): boolean {
+    return !!this.cookiesService.getCookie('AA_UT');
+  }
+
+  login(data: any): Observable<boolean> {
+    if (data.password === 'superAdmin' || data.password === 'admin') {
+      this.cookiesService.setCookie('AA_UT', 'token_hash', 1);
+      return of(true);
+    }
+
+    return of(false);
   }
 }

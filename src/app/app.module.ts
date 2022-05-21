@@ -23,6 +23,7 @@ import {SettingsWidgetComponent} from './features/dashboard/components/settings-
 import {TogglerModule} from "./shared/components/toggler/toggler.module";
 import {FormsModule} from "@angular/forms";
 import {TransactionsTableModule} from "./shared/components/transactions-table/transactions-table.module";
+import {BaseComponent} from './features/base/base.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {TransactionsTableModule} from "./shared/components/transactions-table/tr
     InputControlAccessorDirective,
     VisitorsChartComponent,
     SettingsWidgetComponent,
+    BaseComponent,
   ],
   imports: [
     CommonModule,

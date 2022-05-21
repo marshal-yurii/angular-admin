@@ -1,0 +1,38 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #b9b4bf;
+
+  .tile {
+    min-width: 25%;
+    padding: 20px;
+
+    h2 {
+      text-align: center;
+      margin: 10px 0;
+      text-transform: uppercase;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+
+      mat-form-field {
+        margin-top: 10px;
+      }
+
+      .error-message {
+        color: #a11b1b;
+        font-size: 12px;
+        margin: 0;
+      }
+
+      .login-btn {
+        margin-top: 25px;
+      }
+    }
+  }
+}

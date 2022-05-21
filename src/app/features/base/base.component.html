@@ -1,0 +1,10 @@
+<app-header></app-header>
+<app-navigation></app-navigation>
+
+<main>
+  <div [@slideToLeft]="getRouterAnimation(outlet)" class="page">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </div>
+
+  <app-footer></app-footer>
+</main>
