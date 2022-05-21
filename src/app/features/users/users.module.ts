@@ -5,6 +5,7 @@ import {MaterialModule} from "../../material/material.module";
 import {RouterModule, Routes} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TogglerModule} from "../../shared/components/toggler/toggler.module";
+import {UsersTableModule} from "../../shared/components/users-table/users-table.module";
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     TogglerModule,
+    UsersTableModule,
   ]
 })
 export class UsersModule {

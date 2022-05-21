@@ -1,0 +1,15 @@
+@import "src/assets/styles/variables";
+
+main {
+  margin-top: $header-height;
+  padding-left: $aside-width;
+  height: calc(100vh - #{$header-height});
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  .page {
+    min-height: calc(100vh - #{$header-height} - #{$footer-height} - 40px);
+    padding: 20px;
+    background-color: #f5f4f4;
+  }
+}

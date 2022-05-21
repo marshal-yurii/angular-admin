@@ -1,0 +1,47 @@
+@import "src/assets/styles/variables";
+
+body {
+  margin: 0;
+  font-family: Exo, SansSerif;
+}
+
+.grid-50 {
+  display: flex;
+  flex-wrap: wrap;
+
+  .grid-item {
+    width: 50%;
+  }
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
+
+.ml-2 {
+  margin-left: 8px;
+}
+
+.mb-4 {
+  margin-bottom: 16px;
+}
+
+.tile {
+  background-color: #ffffff;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%),
+  0 2px 10px 0 rgb(0 0 0 / 12%);
+  max-height: 350px;
+
+  .tile-header {
+    padding: 10px;
+    border-bottom: 1px solid $color-border;
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  .tile-body {
+    padding: 10px;
+  }
+}

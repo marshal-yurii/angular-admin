@@ -1,0 +1,16 @@
+<nav>
+  <div class="logo-container" routerLink="/">
+    <img class="main-logo" src="assets/images/angular_logo.png" alt="logo" />
+    Angular Admin
+  </div>
+
+  <div class="nav-items">
+    <div class="nav-item"
+         *ngFor="let nav of navItems"
+         [routerLinkActiveOptions]="{exact: true}"
+         routerLink="{{nav.url}}" routerLinkActive="active"
+    >
+      {{nav.name}}
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,19 @@
+@import "src/assets/styles/variables";
+
+footer {
+  height: $footer-height;
+  background-color: #f5f4f4;
+  width: 100%;
+
+  .footer-text {
+    margin: 0 10px;
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    color: $color-secondary;
+    border-top: 1px solid $color-border;
+    font-size: 12px;
+    font-weight: normal;
+  }
+}

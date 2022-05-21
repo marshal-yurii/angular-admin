@@ -1,99 +1,45 @@
-{{currentDate}}
-<br/><br/>
-<p>
-  Initial array:
-  <ng-container *ngFor="let item of days">{{item}},</ng-container>
-</p>
-<p>
-  First copy array:
-  <ng-container *ngFor="let item of daysCopyOne">{{item}},</ng-container>
-</p>
-<p>
-  Second copy array:
-  <ng-container *ngFor="let item of daysCopyTwo">{{item}},</ng-container>
-</p>
-
-<h3>Operations at days[] array: replace 'To' with ' ', trim empty spaces</h3>
-
-<p>
-  Includes symbol 'w':
-  <ng-container *ngFor="let item of includesSymbolW">
-    <span [ngClass]="{red: !item}">{{item}}, </span>
-  </ng-container>
-</p>
-
-<p>Every string has > 5 letters: <span [ngClass]="{red: !isEveryLengthMoreFive}">{{isEveryLengthMoreFive}}</span></p>
-<p>Any of items is string?: <span [ngClass]="{red: !isAnyString}">{{isAnyString}}</span></p>
-<p>Any of items is number?: <span [ngClass]="{red: !isAnyNumber}">{{isAnyNumber}}</span></p>
-
-<div appAccordion class="linear-chart-container">
-  <div class="flex-item">
-    <div style="display: block;">
-      <canvas baseChart width="400" height="400"
-              [data]="lineChartData"
-              [options]="lineChartOptions"
-              [type]="lineChartType"
-      ></canvas>
+<div class="grid-50">
+  <div class="grid-item">
+    <div class="tile mr-2 mb-4">
+      <div class="tile-header">
+        Visitors
+      </div>
+      <div class="tile-body">
+        <app-visitors-chart [lineChartData]="lineChartData"
+                            [lineChartOptions]="lineChartOptions"
+                            [lineChartType]="lineChartType"
+        ></app-visitors-chart>
+      </div>
     </div>
   </div>
-  <div class="flex-item">
-    <table class="table table-responsive table-condensed">
-      <tr>
-        <th *ngFor="let label of lineChartData.labels">{{label}}</th>
-      </tr>
-      <tr *ngFor="let d of lineChartData.datasets; let i=index" [class]="'line-'+i">
-        <td *ngFor="let label of lineChartData.labels; let j=index">{{d && d.data[j]}}</td>
-      </tr>
-    </table>
-    <div class="button-row">
-      <button mat-button mat-raised-button color="primary" (click)="randomize()">
-        Randomize
-      </button>
-      <button mat-button mat-raised-button color="primary" (click)="changeColor()" [disabled]="disableRecolor">
-        Recolor
-      </button>
+  <div class="grid-item">
+    <div class="tile ml-2 mb-4">
+      <div class="tile-header">
+        Recent users
+      </div>
+      <div class="tile-body">
+        <app-users-table [usersList]="users" [isWidget]="true"></app-users-table>
+      </div>
     </div>
   </div>
-</div>
-
-<br/>
-<br/>
-
-<button mat-button mat-raised-button color="primary" routerLink="users">
-  Users
-</button>
-
-<!--USER UPDATE MESSAGE-->
-<div *ngIf="showMessage" class="message-container">
-  {{currentUser.name}} was successfully updated!
-</div>
-
-<div class="time-ago-container">
-  {{today | timeAgo : 'min'}}
-</div>
-
-<button appAccordion class="accordion">Accordian #1</button>
-<div class="accordion-content">
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas deleniti molestias necessitatibus quaerat quos incidunt! Quas officiis repellat dolore omnis nihil quo,
-    ratione cupiditate! Sed, deleniti, recusandae! Animi, sapiente, nostrum?
-  </p>
-</div>
-
-
-<button appAccordion class="accordion">Accordian #2</button>
-<div class="accordion-content">
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas deleniti molestias necessitatibus quaerat quos incidunt! Quas officiis repellat dolore omnis nihil quo,
-    ratione cupiditate! Sed, deleniti, recusandae! Animi, sapiente, nostrum?
-  </p>
-</div>
-
-
-<button appAccordion class="accordion">Accordian #3</button>
-<div class="accordion-content">
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas deleniti molestias necessitatibus quaerat quos incidunt! Quas officiis repellat dolore omnis nihil quo,
-    ratione cupiditate! Sed, deleniti, recusandae! Animi, sapiente, nostrum?
-  </p>
+  <div class="grid-item">
+    <div class="tile mr-2">
+      <div class="tile-header">
+        Settings
+      </div>
+      <div class="tile-body">
+        <app-settings-widget></app-settings-widget>
+      </div>
+    </div>
+  </div>
+  <div class="grid-item">
+    <div class="tile ml-2">
+      <div appAccordion [opened]="true" class="tile-header accordion-anchor">
+        Last transactions
+      </div>
+      <div class="tile-body accordion-content">
+        <app-users-table [usersList]="users" [isWidget]="true"></app-users-table>
+      </div>
+    </div>
+  </div>
 </div>

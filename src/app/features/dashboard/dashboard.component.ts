@@ -7,6 +7,7 @@ import {ChartConfiguration, ChartType} from "chart.js";
 import {viewsDataMock} from "../../../testing/mocks/viewsDataMock";
 import {UsersService} from "../../shared/services/users.service";
 import {AuthService} from "../auth/services/auth.service";
+import {usersDataMock} from "../../../testing/mocks/usersDataMock";
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +18,8 @@ import {AuthService} from "../auth/services/auth.service";
 export class DashboardComponent implements OnInit {
   currentDate!: string;
   currentUser: IUser = {} as IUser;
+
+  users: IUser[] = [];
 
   today: Date = new Date();
 
@@ -97,6 +100,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.users = usersDataMock;
+
     this.updateCurrentDate(this.getFormattedDate);
     this.updateUser();
 

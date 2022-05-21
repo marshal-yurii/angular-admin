@@ -1,6 +1,4 @@
 import {AfterViewInit, Component, ElementRef, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {MatPaginator} from "@angular/material/paginator";
-import {MatTableDataSource} from "@angular/material/table";
 import {UsersService} from "../../../../shared/services/users.service";
 import {IUser} from "../../../../shared/interfaces/user.interface";
 import {usersDataMock} from "../../../../../testing/mocks/usersDataMock";
@@ -26,9 +24,6 @@ import {CustomEmailValidator} from "../../../../shared/validators/custom-email.v
   ],
 })
 export class UsersComponent implements AfterViewInit {
-  displayedColumns: string[] = ['name', 'email', 'updatedAt', 'active'];
-  dataSource = new MatTableDataSource<IUser>(usersDataMock);
-
   userName = '';
   userEmail = '';
   toggleValue = false;
@@ -37,7 +32,8 @@ export class UsersComponent implements AfterViewInit {
 
   userFormGroup: FormGroup = new FormGroup({});
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  users: IUser[] = usersDataMock;
+
   @ViewChild('nameInput') nameInput!: ElementRef;
   @ViewChild('emailInput') emailInput!: ElementRef;
   @ViewChild('createUserButton') createUserButton!: MatButton;
@@ -58,9 +54,6 @@ export class UsersComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.usersService.currentUser.next(this.dataSource.data[this.dataSource.data.length - 1]);
-
     this.nameInput.nativeElement.focus();
   }
 
@@ -83,8 +76,6 @@ export class UsersComponent implements AfterViewInit {
     // };
     // const data = this.dataSource.data;
     // data.push(newUser);
-
-    this.dataSource.data = this.userFormGroup.getRawValue(); //
   }
 
   setValue(event: any, index: number): void {
