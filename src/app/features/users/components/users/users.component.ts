@@ -2,8 +2,7 @@ import {Component} from '@angular/core';
 import {UsersService} from "../../../../shared/services/users.service";
 import {IUser} from "../../../../shared/interfaces/user.interface";
 import {usersDataMock} from "../../../../../testing/mocks/usersDataMock";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CustomEmailValidator} from "../../../../shared/validators/custom-email.validator";
+import {FormBuilder} from "@angular/forms";
 import {IBreadcrumb} from "../../../../shared/interfaces/breadcrumb.interface";
 import {fadeInOut} from "../../../../shared/animations/animations";
 
@@ -27,9 +26,6 @@ export class UsersComponent {
     },
   ];
 
-  constructor(
-    private usersService: UsersService,
-    private fb: FormBuilder,
-  ) {
+  constructor() {
   }
 }

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {IBreadcrumb} from "../../../../shared/interfaces/breadcrumb.interface";
 import {ActivatedRoute} from "@angular/router";
 import {IUser} from "../../../../shared/interfaces/user.interface";
@@ -12,6 +12,7 @@ import {Subject, takeUntil} from "rxjs";
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserDetailsComponent implements OnInit, OnDestroy {
   currentUser!: IUser;
@@ -22,7 +23,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       name: 'Dashboard',
     },
     {
-      path: './../users',
+      path: '/users',
       name: 'Users',
     },
     {
