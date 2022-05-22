@@ -1,3 +1,21 @@
 .settings-item {
   margin-bottom: 20px;
 }
+
+.menu-container {
+  margin-top: 4px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  padding: 10px;
+  box-shadow: rgb(99 99 99 / 20%) 0 2px 8px 0;
+
+  .menu-item {
+    cursor: pointer;
+    margin-bottom: 4px;
+    padding: 4px;
+
+    .option {
+
+    }
+  }
+}

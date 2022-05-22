@@ -9,7 +9,7 @@ import {CookiesService} from "./cookies.service";
 })
 export class AuthService {
   currentUser = {};
-  currentUserRole: UserRolesEnum = UserRolesEnum.Admin;
+  currentUserRole: UserRolesEnum = UserRolesEnum.SuperAdmin;
 
   constructor(
     private httpClient: HttpClient,

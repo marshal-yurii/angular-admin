@@ -18,3 +18,37 @@
   ></app-multiselect-dropdown>
 </div>
 
+<div class="settings-item">
+  <button class="menu-btn"
+          mat-raised-button
+          appMenu
+          [placement]="'bottom-left'"
+          [autoClose]="'outside'"
+          [menuContent]="menuContent"
+          triggers="manual"
+          #tableRowMenu="appMenu"
+          (click)="tableRowMenu.toggle();$event.stopPropagation();"
+  >
+    Menu
+  </button>
+
+  <ng-template #menuContent>
+    <div class="menu-container">
+      <div class="menu-item">
+        <div class="option">
+          Amend transaction
+        </div>
+      </div>
+      <div class="menu-item">
+        <div class="option">
+          Close transaction
+        </div>
+      </div>
+      <div class="menu-item">
+        <div class="option">
+          Restart transaction
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

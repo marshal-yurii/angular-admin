@@ -1,0 +1,12 @@
+<div class="popover" *ngIf="title">
+  <ng-template #simpleTitle>
+    {{title}}
+  </ng-template>
+  <ng-template [ngTemplateOutlet]="isTitleTemplate() ? $any(title) : simpleTitle"
+               [ngTemplateOutletContext]="context"
+  ></ng-template>
+</div>
+
+<div class="popover-content" [id]="id" [ngClass]="menuClass">
+  <ng-content></ng-content>
+</div>
