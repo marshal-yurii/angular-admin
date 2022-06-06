@@ -5,16 +5,14 @@ import {AppComponent} from './app.component';
 import {BreadcrumbsModule} from "./shared/components/breadcrumbs/breadcrumbs.module";
 import {CommonModule} from "@angular/common";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {PageNotFoundComponent} from './features/page-not-found/page-not-found.component';
 import {DashboardComponent} from "./features/dashboard/dashboard.component";
-import { NgChartsModule } from 'ng2-charts';
+import {NgChartsModule} from 'ng2-charts';
 import {MaterialModule} from "./material/material.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    PageNotFoundComponent,
   ],
   imports: [
     CommonModule,
