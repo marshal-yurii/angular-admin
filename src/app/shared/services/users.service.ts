@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {IUser} from "../interfaces/user.interface";
 import {HttpClient} from "@angular/common/http";
+import {usersDataMock} from "../../../testing/mocks/usersDataMock";
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,10 @@ export class UsersService {
   constructor(
     private http: HttpClient,
   ) { }
+
+  getUsers(searchParams?: any): Observable<IUser[]> {
+    return of(usersDataMock);
+  }
 
   updateCurrentUser(user: IUser): Observable<number> {
     return of(1);

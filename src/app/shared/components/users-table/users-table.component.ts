@@ -11,8 +11,14 @@ import {Router} from "@angular/router";
   styleUrls: ['./users-table.component.scss'],
 })
 export class UsersTableComponent implements OnInit {
-  @Input() usersList: IUser[] = [];
+  @Input() set usersList(users: IUser[]) {
+    this.users = users;
+    this.initUsersDataSource();
+  }
+
   @Input() isWidget!: boolean;
+
+  users: IUser[] = [];
 
   displayedColumns: string[] = ['name', 'email', 'status'];
   dataSource: MatTableDataSource<IUser> = new MatTableDataSource<IUser>([]);
@@ -33,11 +39,7 @@ export class UsersTableComponent implements OnInit {
       this.displayedColumns = [...this.displayedColumns, ...['updatedAt', 'amount', 'phone', 'actions']];
     }
 
-    this.editMode = Array(this.usersList.length).fill(false);
-    this.phoneNumber = this.usersList.map((el: IUser) => el.phone as number);
-    this.dataSource.data = [...this.usersList];
-    this.dataSource.paginator = this.paginator;
-    this.usersService.currentUser.next(this.dataSource.data[this.dataSource.data.length - 1]);
+    this.initUsersDataSource();
   }
 
   editUser(user: IUser): void {
@@ -63,5 +65,13 @@ export class UsersTableComponent implements OnInit {
     this.phoneNumber[i] = users[i].phone as number;
     this.dataSource.data = users;
     this.editMode[i] = false;
+  }
+
+  private initUsersDataSource(): void {
+    this.editMode = Array(this.users.length).fill(false);
+    this.phoneNumber = this.users.map((el: IUser) => el.phone as number);
+    this.dataSource.data = [...this.users];
+    this.dataSource.paginator = this.paginator;
+    this.usersService.currentUser.next(this.dataSource.data[this.dataSource.data.length - 1]);
   }
 }

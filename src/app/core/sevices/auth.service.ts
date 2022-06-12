@@ -25,6 +25,18 @@ export class AuthService {
     return this.currentUserRole;
   }
 
+  getCurrentUser(): Observable<any> {
+    return of({
+      id: 0,
+      name: 'LoggedIn User',
+      role: UserRolesEnum.SuperAdmin,
+    })
+  }
+
+  getCurrentState(): Observable<number> {
+    return of(10);
+  }
+
   hasToken(): boolean {
     return !!this.cookiesService.getCookie('AA_UT');
   }

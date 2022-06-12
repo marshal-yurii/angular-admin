@@ -1,7 +1,14 @@
 <app-breadcrumbs [breadcrumbs]="breadcrumbs"></app-breadcrumbs>
 
 <div class="users-table-container mat-elevation-z8">
-  <h1>USERS</h1>
+  <div class="heading">
+    <h1>USERS</h1>
+
+    <mat-form-field class="search-input">
+      <mat-label>Search for User Name</mat-label>
+      <input matInput placeholder="User name" [formControl]="searchUserControl" />
+    </mat-form-field>
+  </div>
 
   <app-users-table [usersList]="users"></app-users-table>
 </div>

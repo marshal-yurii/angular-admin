@@ -1,8 +1,13 @@
 .users-table-container {
   margin: 10px;
 
-  h1 {
-    padding: 20px 20px 10px;
+  .heading {
+    align-items: center;
+    padding: 20px 20px 0;
+
+    .search-input .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
   }
 
   table {
