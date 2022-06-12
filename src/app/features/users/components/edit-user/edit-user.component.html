@@ -1,3 +1,129 @@
 <app-breadcrumbs [breadcrumbs]="breadcrumbs"></app-breadcrumbs>
 
-<h2>EDIT USER PAGE</h2>
+<div class="default-container">
+  <form [formGroup]="userFormGroup" (ngSubmit)="saveUser(userFormGroup)">
+    <div class="heading">
+      <h2>
+        EDIT <span>{{currentUser?.name ?? 'USER'}}</span>
+      </h2>
+
+      <mat-slide-toggle class="example-margin" formControlName="isActive">
+        Active
+      </mat-slide-toggle>
+    </div>
+
+    <div class="general-information-block">
+      <mat-form-field>
+        <mat-label>User Name</mat-label>
+        <input matInput placeholder="User name" formControlName="name">
+        <mat-error>Name is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="User email">
+        <mat-error *ngIf="userFormGroup.get('email')?.errors?.['email']">
+          Please enter valid email
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Phone</mat-label>
+        <input matInput
+               [maxLength]="14"
+               formControlName="phone"
+               placeholder="(999) 999-9999"
+               mask="(000) 000-0000"
+        >
+        <mat-error *ngIf="userFormGroup.get('phone')?.errors">
+          Exactly 10 digits
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <fieldset class="user-address" formGroupName="address">
+      <legend>USER ADDRESS</legend>
+
+      <mat-form-field>
+        <mat-label>Street</mat-label>
+        <input matInput placeholder="Street" formControlName="street">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>City</mat-label>
+        <input matInput placeholder="City" formControlName="city">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>State</mat-label>
+        <mat-select formControlName="state">
+          <mat-select-trigger>
+            {{userFormGroup.get('address.state')?.value}}
+          </mat-select-trigger>
+          <mat-option *ngFor="let state of stateList" [value]="state">
+            {{state}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </fieldset>
+
+    <fieldset class="phones-block">
+      <legend>ADDITIONAL PHONES</legend>
+
+      <div class="add-phone-container" [class.empty]="!alternativePhones.controls?.length">
+        <button mat-mini-fab type="button"
+                [disabled]="userFormGroup.get('alternativePhoneNumbers')?.invalid"
+                (click)="addAlternativePhone()"
+        >
+          <mat-icon class="add-course-btn">add</mat-icon>
+        </button>
+      </div>
+
+      <ng-container formArrayName="alternativePhoneNumbers">
+        <ng-container *ngFor="let phoneForm of alternativePhones.controls; let i = index">
+          <div class="phone-form-row" [formGroupName]="i">
+            <mat-form-field>
+              <mat-label>Phone</mat-label>
+              <input matInput
+                     [maxLength]="14"
+                     formControlName="phone"
+                     placeholder="(999) 999-9999"
+                     mask="(000) 000-0000"
+              >
+              <mat-error *ngIf="phoneForm.get('phone')?.errors?.['required']">
+                The field is required
+              </mat-error>
+              <mat-error *ngIf="phoneForm.get('phone')?.errors?.['minlength']">
+                Exactly 10 digits
+              </mat-error>
+            </mat-form-field>
+            <button mat-icon-button class="delete-btn" (click)="deleteAlternativePhone(i)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </div>
+        </ng-container>
+      </ng-container>
+    </fieldset>
+
+    <!--  <mat-form-field appearance="standard">-->
+    <!--    <mat-label>Address:</mat-label>-->
+    <!--    <textarea matInput placeholder="address" formControlName="address"></textarea>-->
+    <!--  </mat-form-field>-->
+
+    <!--  <mat-form-field appearance="fill" hintLabel="Country name required">-->
+    <!--    <mat-label>Country</mat-label>-->
+    <!--    <mat-select matNativeControl name="country" formControlName="country">-->
+    <!--      <mat-option value="india">India</mat-option>-->
+    <!--    </mat-select>-->
+    <!--  </mat-form-field>-->
+
+    <div class="form-controls" mat-dialog-actions align="end">
+      <button class="cancel-btn" mat-raised-button type="button" (click)="cancelEdit()">
+        Cancel
+      </button>
+      <button class="submit-btn" mat-raised-button color="primary" type="submit" [disabled]="userFormGroup.invalid">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

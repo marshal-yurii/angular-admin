@@ -6,13 +6,15 @@ import {RouterModule, Routes} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TogglerModule} from "../../shared/components/toggler/toggler.module";
 import {UsersTableModule} from "../../shared/components/users-table/users-table.module";
-import { UserDetailsComponent } from './components/user-details/user-details.component';
-import { TransactionsComponent } from './components/transactions/transactions.component';
-import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
-import { EditUserComponent } from './components/edit-user/edit-user.component';
+import {UserDetailsComponent} from './components/user-details/user-details.component';
+import {TransactionsComponent} from './components/transactions/transactions.component';
+import {TransactionDetailsComponent} from './components/transaction-details/transaction-details.component';
+import {EditUserComponent} from './components/edit-user/edit-user.component';
 import {BreadcrumbsModule} from "../../shared/components/breadcrumbs/breadcrumbs.module";
 import {TransactionsTableModule} from "../../shared/components/transactions-table/transactions-table.module";
 import {TransactionResolver} from "../../core/resolvers/transaction.resolver";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {NgxMaskModule} from "ngx-mask";
 
 const routes: Routes = [
   {
@@ -60,7 +62,9 @@ const routes: Routes = [
     UsersTableModule,
     BreadcrumbsModule,
     TransactionsTableModule,
-  ]
+    MatSlideToggleModule,
+    NgxMaskModule,
+  ],
 })
 export class UsersModule {
 }
