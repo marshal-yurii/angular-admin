@@ -41,6 +41,7 @@ export class UsersTableComponent implements OnInit {
   }
 
   editUser(user: IUser): void {
+    this.usersService.currentUser.next(user);
     this.router.navigateByUrl('users/user/' + user.id);
   }
 
