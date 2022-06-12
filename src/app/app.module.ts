@@ -24,6 +24,13 @@ import {TogglerModule} from "./shared/components/toggler/toggler.module";
 import {FormsModule} from "@angular/forms";
 import {TransactionsTableModule} from "./shared/components/transactions-table/transactions-table.module";
 import {BaseComponent} from './features/base/base.component';
+import {NgxsModule} from "@ngxs/store";
+import {environment} from "../environments/environment";
+import {AuthState} from "./shared/states/auth/auth.state";
+import {SettingsState} from "./shared/states/settings/settings.state";
+import {UsersState} from "./shared/states/users/users.state";
+import {DashboardState} from "./shared/states/dashboard/dashboard.state";
+import {NgxsStoragePluginModule, StorageOption} from "@ngxs/storage-plugin";
 
 @NgModule({
   declarations: [
@@ -54,6 +61,17 @@ import {BaseComponent} from './features/base/base.component';
     UsersTableModule,
     TogglerModule,
     TransactionsTableModule,
+    NgxsModule.forRoot([
+      AuthState,
+      DashboardState,
+      UsersState,
+      SettingsState,
+    ], {
+      developmentMode: !environment.production,
+    }),
+    NgxsStoragePluginModule.forRoot({
+      storage: StorageOption.LocalStorage,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
