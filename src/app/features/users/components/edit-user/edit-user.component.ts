@@ -3,8 +3,11 @@ import {IBreadcrumb} from "../../../../shared/interfaces/breadcrumb.interface";
 import {IUser} from "../../../../shared/interfaces/user.interface";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UsersService} from "../../../../shared/services/users.service";
-import {take} from "rxjs";
+import {Observable, take} from "rxjs";
 import {Router} from "@angular/router";
+import {Select, Store} from "@ngxs/store";
+import {UpdateCurrentUser} from "../../../../shared/states/users/users.actions";
+import {UsersState} from "../../../../shared/states/users/users.state";
 
 @Component({
   selector: 'app-edit-user',
@@ -43,9 +46,12 @@ export class EditUserComponent implements OnInit {
     return this.userFormGroup.controls['alternativePhoneNumbers'] as FormArray;
   }
 
+  @Select(UsersState.currentUser) currentUser$!: Observable<IUser>;
+
   constructor(
     private fb: FormBuilder,
     private userService: UsersService,
+    private store: Store,
     private router: Router,
   ) {
   }
@@ -64,7 +70,7 @@ export class EditUserComponent implements OnInit {
       alternativePhoneNumbers: this.fb.array([]),
     });
 
-    this.userService.currentUser
+    this.currentUser$
       .pipe(take(1))
       .subscribe((user: IUser) => {
         this.currentUser = user;
@@ -86,9 +92,10 @@ export class EditUserComponent implements OnInit {
 
   saveUser(form: FormGroup): void {
     if (form.valid) {
-      this.userService.updateCurrentUser(form.getRawValue())
+      this.store.dispatch(new UpdateCurrentUser(form.getRawValue()))
         .pipe(take(1))
-        .subscribe((userId: number) => {
+        .subscribe(() => {
+          const userId = this.store.selectSnapshot(UsersState.currentUser)?.id;
           this.router.navigateByUrl('/users/' + userId);
         });
     }

@@ -1,4 +1,4 @@
-<nav [ngClass]="{'dark': currentTheme === ThemesEnum.Dark}">
+<nav [ngClass]="{'dark': (currentTheme$ | async) === ThemesEnum.Dark}">
   <div class="logo-container" routerLink="/">
     <img class="main-logo" src="assets/images/angular_logo.png" alt="logo" />
     Angular Admin
@@ -6,10 +6,11 @@
 
   <div class="nav-items">
     <ng-container *ngFor="let nav of navItems">
-      <div class="nav-item"
-           *ngIf="checkSettingsVisibility(nav)"
+      <div *ngIf="checkSettingsVisibility(nav)"
+           class="nav-item"
            [routerLinkActiveOptions]="{exact: true}"
-           routerLink="{{nav.url}}" routerLinkActive="active"
+           routerLink="{{nav.url}}"
+           routerLinkActive="active"
       >
         {{nav.name}}
       </div>

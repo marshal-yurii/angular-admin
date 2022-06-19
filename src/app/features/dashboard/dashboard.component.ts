@@ -5,11 +5,12 @@ import {ITransaction} from "../../shared/interfaces/transaction.interface";
 import {BaseChartDirective} from "ng2-charts";
 import {ChartConfiguration, ChartType} from "chart.js";
 import {viewsDataMock} from "../../../testing/mocks/viewsDataMock";
-import {UsersService} from "../../shared/services/users.service";
-import {AuthService} from "../../core/sevices/auth.service";
 import {usersDataMock} from "../../../testing/mocks/usersDataMock";
 import {fadeInOut} from "../../shared/animations/animations";
 import {transactionsDataMock} from "../../../testing/mocks/transactionsDataMock";
+import {Select} from "@ngxs/store";
+import {UsersState} from "../../shared/states/users/users.state";
+import {Observable, take} from "rxjs";
 
 @Component({
   selector: 'app-dashboard',
@@ -94,12 +95,12 @@ export class DashboardComponent implements OnInit {
 
   public lineChartType: ChartType = 'line';
 
+  @Select(UsersState.currentUser) currentUser$!: Observable<IUser>;
+
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   constructor(
     private datePipe: DatePipe,
-    private authService: AuthService,
-    private usersService: UsersService,
   ) {
   }
 
@@ -122,7 +123,8 @@ export class DashboardComponent implements OnInit {
     this.days.forEach(el => el + '1');
     this.days = this.days.map(el => el.replace('To', ' ').trim());
 
-    this.usersService.currentUser
+    this.currentUser$
+      .pipe(take(1))
       .subscribe((user: IUser) => {
         if (user?.name) {
           this.showMessage = true;

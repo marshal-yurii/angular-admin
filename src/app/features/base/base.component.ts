@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router, RouterOutlet} from "@angular/router";
-import {AuthService} from "../../core/sevices/auth.service";
+import {Router, RouterOutlet} from "@angular/router";
 import {UserRolesEnum} from "../../shared/enums/user-roles.enum";
 import {slideToLeft} from "../../shared/animations/animations";
+import {Store} from "@ngxs/store";
+import {SetCurrentUserRole} from "../../shared/states/auth/auth.actions";
 
 @Component({
   selector: 'app-base',
@@ -14,13 +15,12 @@ export class BaseComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
-    private authService: AuthService,
+    private store: Store,
   ) {
   }
 
   ngOnInit(): void {
-    this.authService.currentUserRole = UserRolesEnum.SuperAdmin;
+    this.store.dispatch(new SetCurrentUserRole(UserRolesEnum.SuperAdmin));
   }
 
   redirectTo(breadcrumb: string): void {

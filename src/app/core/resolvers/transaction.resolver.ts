@@ -5,16 +5,17 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router';
 import {Observable, of} from 'rxjs';
-import {AuthService} from "../sevices/auth.service";
+import {Store} from "@ngxs/store";
+import {AuthState} from "../../shared/states/auth/auth.state";
 
 @Injectable({
   providedIn: 'root',
 })
 export class TransactionResolver implements Resolve<any> {
-  constructor(private authService: AuthService) {
+  constructor(private store: Store) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return of(this.authService.getRole());
+    return of(this.store.selectSnapshot(AuthState.currentUserRole));
   }
 }

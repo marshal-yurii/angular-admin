@@ -1,17 +1,19 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {INavigation} from "../../interfaces/navigation.interface";
-import {AuthService} from "../../../core/sevices/auth.service";
 import {UserRolesEnum} from "../../enums/user-roles.enum";
-import {SettingsService} from "../../../features/settings/services/settings.service";
-import {Subject, takeUntil} from "rxjs";
+import {Observable} from "rxjs";
 import {ThemesEnum} from "../../enums/themes.enum";
+import {Select, Store} from "@ngxs/store";
+import {SetCurrentTheme} from "../../states/settings/settings.actions";
+import {SettingsState} from "../../states/settings/settings.state";
+import {AuthState} from "../../states/auth/auth.state";
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
 })
-export class NavigationComponent implements OnInit, OnDestroy {
+export class NavigationComponent implements OnInit {
   navItems: INavigation[] = [
     {
       url: '',
@@ -28,31 +30,19 @@ export class NavigationComponent implements OnInit, OnDestroy {
   ];
 
   currentTheme!: ThemesEnum;
-
   ThemesEnum = ThemesEnum;
-  UserRolesEnum = UserRolesEnum;
 
-  private readonly onDestroy$: Subject<void> = new Subject();
+  @Select(SettingsState.currentTheme) currentTheme$!: Observable<ThemesEnum>;
 
   constructor(
-    private authService: AuthService,
-    private settingService: SettingsService,
+    private store: Store,
   ) { }
 
   ngOnInit(): void {
-    this.settingService.currentTheme$
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe((theme: ThemesEnum) => {
-        this.currentTheme = theme;
-      })
-  }
-
-  ngOnDestroy(): void {
-    this.onDestroy$.next();
-    this.onDestroy$.complete();
+    this.store.dispatch(new SetCurrentTheme(ThemesEnum.Light));
   }
 
   checkSettingsVisibility(nav: INavigation): boolean {
-    return nav.url !== 'settings' || (this.authService.getRole() === UserRolesEnum.SuperAdmin);
+    return nav.url !== 'settings' || (this.store.selectSnapshot(AuthState.currentUserRole) === UserRolesEnum.SuperAdmin);
   }
 }

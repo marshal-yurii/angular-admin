@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {AuthService} from "../../../../core/sevices/auth.service";
 import {UserRolesEnum} from "../../../../shared/enums/user-roles.enum";
+import {Store} from "@ngxs/store";
+import {SetCurrentUserRole} from "../../../../shared/states/auth/auth.actions";
 
 @Component({
   selector: 'app-settings-widget',
@@ -14,7 +15,7 @@ export class SettingsWidgetComponent implements OnInit {
   isSuperAdmin = true;
 
   constructor(
-    private authService: AuthService,
+    private store: Store,
   ) {
   }
 
@@ -22,6 +23,6 @@ export class SettingsWidgetComponent implements OnInit {
   }
 
   setUserRole(ev: boolean): void {
-    this.authService.currentUserRole = ev ? UserRolesEnum.SuperAdmin : UserRolesEnum.Admin;
+    this.store.dispatch(new SetCurrentUserRole(ev ? UserRolesEnum.SuperAdmin : UserRolesEnum.Admin));
   }
 }

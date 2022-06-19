@@ -6,8 +6,11 @@ import {IBreadcrumb} from "../../../../shared/interfaces/breadcrumb.interface";
 import {fadeInOut} from "../../../../shared/animations/animations";
 import {debounceTime, distinctUntilChanged, filter, startWith, switchMap} from "rxjs/operators";
 import {combineLatest, Subject, takeUntil} from "rxjs";
-import {AuthService} from "../../../../core/sevices/auth.service";
-import {UsersService} from "../../../../shared/services/users.service";
+import {Store} from "@ngxs/store";
+import {GetUsers} from "../../../../shared/states/users/users.actions";
+import {GetCurrentState, GetCurrentUser} from "../../../../shared/states/auth/auth.actions";
+import {UserRolesEnum} from "../../../../shared/enums/user-roles.enum";
+import {AuthState} from "../../../../shared/states/auth/auth.state";
 
 @Component({
   selector: 'app-users',
@@ -35,8 +38,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   onDestroy$: Subject<void> = new Subject<void>();
 
   constructor(
-    private authService: AuthService,
-    private usersService: UsersService,
+    private store: Store,
   ) {
   }
 
@@ -56,21 +58,21 @@ export class UsersComponent implements OnInit, OnDestroy {
         })];
       });
 
-    // get users list for exactly current user id and their state
+    // simplified emulation of API
     combineLatest([
-      this.authService.getCurrentUser(),
-      this.authService.getCurrentState(),
+      this.store.dispatch(new GetCurrentUser()),
+      this.store.dispatch(new GetCurrentState()),
     ])
       .pipe(
         takeUntil(this.onDestroy$),
-        switchMap(([user, state]: [any, number]) => {
-          return this.usersService.getUsers({
-            state,
-            id: user?.id,
-          });
+        switchMap(([_, __]: [any, any]) => {
+          return this.store.dispatch(new GetUsers({
+            state: this.store.selectSnapshot(AuthState.currentState),
+            id: this.store.selectSnapshot(AuthState.currentUser)?.id,
+          }));
         }),
       )
-      .subscribe((users: IUser[]) => this.users = users);
+      .subscribe(() => {}); // you don't need to retrieve user here, let's do it at the NGXS state instead
   }
 
   ngOnDestroy(): void {

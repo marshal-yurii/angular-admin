@@ -29,7 +29,6 @@ import {environment} from "../environments/environment";
 import {AuthState} from "./shared/states/auth/auth.state";
 import {SettingsState} from "./shared/states/settings/settings.state";
 import {UsersState} from "./shared/states/users/users.state";
-import {DashboardState} from "./shared/states/dashboard/dashboard.state";
 import {NgxsStoragePluginModule, StorageOption} from "@ngxs/storage-plugin";
 
 @NgModule({
@@ -63,7 +62,6 @@ import {NgxsStoragePluginModule, StorageOption} from "@ngxs/storage-plugin";
     TransactionsTableModule,
     NgxsModule.forRoot([
       AuthState,
-      DashboardState,
       UsersState,
       SettingsState,
     ], {

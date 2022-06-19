@@ -1,6 +1,8 @@
-export class Login {
-  static readonly type = '[Settings] login user';
+import {ThemesEnum} from "../../enums/themes.enum";
 
-  constructor(public loginData: { email: string, password: string }) {
+export class SetCurrentTheme {
+  static readonly type = '[Settings] set theme for a system';
+
+  constructor(public theme: ThemesEnum) {
   }
 }

@@ -1,6 +1,15 @@
-export class Login {
-  static readonly type = '[Users] login user';
+import {IUser} from "../../interfaces/user.interface";
 
-  constructor(public loginData: { email: string, password: string }) {
+export class GetUsers {
+  static readonly type = '[Users] get all user';
+
+  constructor(public searchParams: any) {
+  }
+}
+
+export class UpdateCurrentUser {
+  static readonly type = '[Users] update current user';
+
+  constructor(public user: IUser) {
   }
 }

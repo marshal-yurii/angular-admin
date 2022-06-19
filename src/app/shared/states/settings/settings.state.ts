@@ -2,9 +2,11 @@ import {Action, NgxsOnInit, Selector, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {Observable, of} from "rxjs";
 import * as Act from './settings.actions';
+import {ThemesEnum} from "../../enums/themes.enum";
 
 export interface SettingsStateModel {
   loading: boolean;
+  currentTheme: ThemesEnum;
 }
 
 @State<SettingsStateModel>({
@@ -18,16 +20,19 @@ export class SettingsState implements NgxsOnInit {
     return state.loading;
   }
 
+  @Selector()
+  static currentTheme(state: SettingsStateModel): ThemesEnum {
+    return state.currentTheme;
+  }
+
   constructor() {
   }
 
   ngxsOnInit(ctx: StateContext<SettingsStateModel>): void {
   }
 
-  @Action(Act.Login)
-  login(ctx: StateContext<SettingsStateModel>, {loginData}: Act.Login): Observable<any> {
-    ctx.patchState({loading: true});
-
-    return of({});
+  @Action(Act.SetCurrentTheme)
+  setCurrentTheme(ctx: StateContext<SettingsStateModel>, {theme}: Act.SetCurrentTheme): void {
+    ctx.patchState({currentTheme: theme});
   }
 }

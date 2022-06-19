@@ -1,9 +1,10 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {IUser} from "../../interfaces/user.interface";
 import {MatTableDataSource} from "@angular/material/table";
-import {UsersService} from "../../services/users.service";
 import {MatPaginator} from "@angular/material/paginator";
 import {Router} from "@angular/router";
+import {Store} from "@ngxs/store";
+import {UpdateCurrentUser} from "../../states/users/users.actions";
 
 @Component({
   selector: 'app-users-table',
@@ -29,7 +30,7 @@ export class UsersTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
-    private usersService: UsersService,
+    private store: Store,
     private router: Router,
   ) {
   }
@@ -43,7 +44,7 @@ export class UsersTableComponent implements OnInit {
   }
 
   editUser(user: IUser): void {
-    this.usersService.currentUser.next(user);
+    this.store.dispatch(new UpdateCurrentUser(user))
     this.router.navigateByUrl('users/user/' + user.id);
   }
 
@@ -72,6 +73,6 @@ export class UsersTableComponent implements OnInit {
     this.phoneNumber = this.users.map((el: IUser) => el.phone as number);
     this.dataSource.data = [...this.users];
     this.dataSource.paginator = this.paginator;
-    this.usersService.currentUser.next(this.dataSource.data[this.dataSource.data.length - 1]);
+    this.store.dispatch(new UpdateCurrentUser(this.dataSource.data[this.dataSource.data.length - 1]));
   }
 }
