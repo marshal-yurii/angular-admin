@@ -1,5 +1,5 @@
 <div *ngIf="breadcrumbs.length" class="breadcrumbs-container">
-  <ng-container *ngFor="let breadcrumb of breadcrumbs; let i = index; let first = first; let last = last">
+  <ng-container *ngFor="let breadcrumb of breadcrumbs; let i = index; let first = first; let last = last; trackBy: identifyFn">
     <div *ngIf="!last; else lastItem" class="breadcrumb" routerLink="{{breadcrumb.path}}" (click)="chosen.emit(breadcrumb)">
       {{breadcrumb.name}}
     </div>

@@ -11,6 +11,10 @@ export class BreadcrumbsComponent implements OnInit {
 
   @Output() chosen: EventEmitter<IBreadcrumb> = new EventEmitter();
 
+  identifyFn = (item: IBreadcrumb, index: number) => {
+    return item.name;
+  };
+
   constructor() { }
 
   ngOnInit(): void {
