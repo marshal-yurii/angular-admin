@@ -4,6 +4,7 @@ import {Observable, of, tap} from "rxjs";
 import * as Act from './users.actions';
 import {IUser} from "../../interfaces/user.interface";
 import {usersDataMock} from "../../../../testing/mocks/usersDataMock";
+import {Cacheable} from "ts-cacheable";
 
 export interface UsersStateModel {
   loading: boolean;
@@ -38,6 +39,9 @@ export class UsersState implements NgxsOnInit {
   ngxsOnInit(ctx: StateContext<UsersStateModel>): void {
   }
 
+  // this decorator will cache the data you want to reuse further without calling the source
+  // or create your one e.g. this version: https://gist.github.com/daxartio/5ebce9eac73d578615f3a8a8cf72a594
+  @Cacheable()
   @Action(Act.GetUsers)
   getUsers(ctx: StateContext<UsersStateModel>, {searchParams}: Act.GetUsers): Observable<IUser[]> {
     ctx.patchState({loading: true});
