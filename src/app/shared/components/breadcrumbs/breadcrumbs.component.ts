@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, TrackByFunction} from '@angular/core';
 import {IBreadcrumb} from "../../interfaces/breadcrumb.interface";
 
 @Component({
@@ -11,9 +11,7 @@ export class BreadcrumbsComponent implements OnInit {
 
   @Output() chosen: EventEmitter<IBreadcrumb> = new EventEmitter();
 
-  identifyFn = (item: IBreadcrumb, index: number) => {
-    return item.name;
-  };
+  identifyFn: TrackByFunction<IBreadcrumb> = (index: number, item: IBreadcrumb) => item.name;
 
   constructor() { }
 
