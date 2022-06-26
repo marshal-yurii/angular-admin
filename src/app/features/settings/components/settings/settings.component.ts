@@ -9,6 +9,8 @@ import {Observable, take} from "rxjs";
 import {AutoUnsubscribe} from "ngx-auto-unsubscribe";
 
 // this type of unsubscribe demands OnDestroy call apparently
+// to use this decorator you want to install a library:
+// >>> npm install ngx-auto-unsubscribe --save
 @AutoUnsubscribe()
 @Component({
   selector: 'app-settings',
