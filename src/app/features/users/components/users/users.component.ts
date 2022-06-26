@@ -1,16 +1,16 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IUser} from "../../../../shared/interfaces/user.interface";
 import {usersDataMock} from "../../../../../testing/mocks/usersDataMock";
 import {FormControl} from "@angular/forms";
 import {IBreadcrumb} from "../../../../shared/interfaces/breadcrumb.interface";
 import {fadeInOut} from "../../../../shared/animations/animations";
 import {debounceTime, distinctUntilChanged, filter, startWith, switchMap} from "rxjs/operators";
-import {combineLatest, Subject, takeUntil} from "rxjs";
+import {combineLatest, takeUntil} from "rxjs";
 import {Store} from "@ngxs/store";
 import {GetUsers} from "../../../../shared/states/users/users.actions";
 import {GetCurrentState, GetCurrentUser} from "../../../../shared/states/auth/auth.actions";
-import {UserRolesEnum} from "../../../../shared/enums/user-roles.enum";
 import {AuthState} from "../../../../shared/states/auth/auth.state";
+import {UnsubscribeOnDestroy} from "../../../../shared/classes/UnsubscribeOnDestroy";
 
 @Component({
   selector: 'app-users',
@@ -18,7 +18,7 @@ import {AuthState} from "../../../../shared/states/auth/auth.state";
   styleUrls: ['./users.component.scss'],
   animations: [fadeInOut],
 })
-export class UsersComponent implements OnInit, OnDestroy {
+export class UsersComponent extends UnsubscribeOnDestroy implements OnInit {
   usersInitial: IUser[] = usersDataMock;
   users: IUser[] = [...this.usersInitial];
 
@@ -35,22 +35,24 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   searchUserControl: FormControl = new FormControl('');
 
-  onDestroy$: Subject<void> = new Subject<void>();
-
   constructor(
     private store: Store,
   ) {
+    super();
   }
 
   ngOnInit(): void {
     this.searchUserControl.valueChanges
       .pipe(
+        // this type of unsubscribe uses extends syntax to inherit base class
+        // and this approach exclude availability to inherit another class
         takeUntil(this.onDestroy$),
         distinctUntilChanged(),
         startWith(''),
         debounceTime(200),
         // exclude word 'third' from the search, the observable fires only if meet this condition
         filter((value: string) => value.toLowerCase() !== 'third'),
+
       )
       .subscribe((value: string) => {
         this.users = [...this.usersInitial.filter((user: IUser) => {
@@ -73,10 +75,5 @@ export class UsersComponent implements OnInit, OnDestroy {
         }),
       )
       .subscribe(() => {}); // you don't need to retrieve user here, let's do it at the NGXS state instead
-  }
-
-  ngOnDestroy(): void {
-    this.onDestroy$.next();
-    this.onDestroy$.complete();
   }
 }

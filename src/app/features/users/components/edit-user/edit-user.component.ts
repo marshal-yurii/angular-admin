@@ -2,7 +2,6 @@ import {Component, OnInit} from "@angular/core";
 import {IBreadcrumb} from "../../../../shared/interfaces/breadcrumb.interface";
 import {IUser} from "../../../../shared/interfaces/user.interface";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UsersService} from "../../../../shared/services/users.service";
 import {Observable, take} from "rxjs";
 import {Router} from "@angular/router";
 import {Select, Store} from "@ngxs/store";
@@ -50,7 +49,6 @@ export class EditUserComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UsersService,
     private store: Store,
     private router: Router,
   ) {
